@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      SAP SQL Anywhere 17                          */
-/* Created on:     05.01.2022 08:02:07                          */
+/* Created on:     05.01.2022 08:18:34                          */
 /*==============================================================*/
 
 
@@ -62,16 +62,6 @@ end if;
 if exists(select 1 from sys.sysforeignkey where role='FK_ATTRIBUT_ATTRIB_EI_EINHEIT_') then
     alter table ATTRIBUTE
        delete foreign key FK_ATTRIBUT_ATTRIB_EI_EINHEIT_
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ATTRIBUT_AUF_ITEM') then
-    alter table ATTRIBUT_TO_ITEM
-       delete foreign key FK_ATTRIBUT_AUF_ITEM
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ATTRIBUT_HAT_ITEM_ATT') then
-    alter table ATTRIBUT_TO_ITEM
-       delete foreign key FK_ATTRIBUT_HAT_ITEM_ATT
 end if;
 
 if exists(select 1 from sys.sysforeignkey where role='FK_AUKTION_ACCOUNT_T_ACCOUNT') then
@@ -164,9 +154,9 @@ if exists(select 1 from sys.sysforeignkey where role='FK_GEBAEUDE_GEHORT2_GEBAEU
        delete foreign key FK_GEBAEUDE_GEHORT2_GEBAEUDE
 end if;
 
-if exists(select 1 from sys.sysforeignkey where role='FK_GEBAEUDE_HAT2_GEBAEUDE') then
+if exists(select 1 from sys.sysforeignkey where role='FK_GEBAEUDE_HAT_GEBAEUDE') then
     alter table GEBAEUDE_TO_GEBAEUDEEIGENSCHAFT
-       delete foreign key FK_GEBAEUDE_HAT2_GEBAEUDE
+       delete foreign key FK_GEBAEUDE_HAT_GEBAEUDE
 end if;
 
 if exists(select 1 from sys.sysforeignkey where role='FK_GEBOT_ACCOUNT_T_ACCOUNT') then
@@ -276,14 +266,6 @@ drop index if exists ATTRIBUTE.ATTRIB_EINHEIT_FK;
 drop index if exists ATTRIBUTE.ATTRIBUTE_PK;
 
 drop table if exists ATTRIBUTE;
-
-drop index if exists ATTRIBUT_TO_ITEM.HAT_FK;
-
-drop index if exists ATTRIBUT_TO_ITEM.AUF_FK;
-
-drop index if exists ATTRIBUT_TO_ITEM.ATTRIBUT_TO_ITEM_PK;
-
-drop table if exists ATTRIBUT_TO_ITEM;
 
 drop index if exists AUKTION.RELATIONSHIP_8_FK;
 
@@ -402,10 +384,6 @@ drop table if exists GRUPPE;
 drop index if exists ITEM.ITEM_PK;
 
 drop table if exists ITEM;
-
-drop index if exists ITEM_ATTRIBUT.ITEM_ATTRIBUT_PK;
-
-drop table if exists ITEM_ATTRIBUT;
 
 drop index if exists KOENIGREICH.KOENIGREICH_TO_ACCOUNT_FK;
 
@@ -737,38 +715,6 @@ ATTRIBUT_ID ASC
 /*==============================================================*/
 create index ATTRIB_EINHEIT_FK on ATTRIBUTE (
 EINHEIT_ATTRIBU_ID ASC
-);
-
-/*==============================================================*/
-/* Table: ATTRIBUT_TO_ITEM                                      */
-/*==============================================================*/
-create or replace table ATTRIBUT_TO_ITEM 
-(
-   ITEM_ID              integer                        not null,
-   ITAT_ID              integer                        not null,
-   constraint PK_ATTRIBUT_TO_ITEM primary key clustered (ITEM_ID, ITAT_ID)
-);
-
-/*==============================================================*/
-/* Index: ATTRIBUT_TO_ITEM_PK                                   */
-/*==============================================================*/
-create unique clustered index ATTRIBUT_TO_ITEM_PK on ATTRIBUT_TO_ITEM (
-ITEM_ID ASC,
-ITAT_ID ASC
-);
-
-/*==============================================================*/
-/* Index: AUF_FK                                                */
-/*==============================================================*/
-create index AUF_FK on ATTRIBUT_TO_ITEM (
-ITEM_ID ASC
-);
-
-/*==============================================================*/
-/* Index: HAT_FK                                                */
-/*==============================================================*/
-create index HAT_FK on ATTRIBUT_TO_ITEM (
-ITAT_ID ASC
 );
 
 /*==============================================================*/
@@ -1285,24 +1231,6 @@ ITEM_ID ASC
 );
 
 /*==============================================================*/
-/* Table: ITEM_ATTRIBUT                                         */
-/*==============================================================*/
-create or replace table ITEM_ATTRIBUT 
-(
-   ITAT_ID              integer                        not null,
-   ITAT_ATTRIBUTTYP     ITEM_ATTRIB_TYP                not null,
-   ITAT_EFFEKT          ITEM_ATTRIB_EFFEKT             not null,
-   constraint PK_ITEM_ATTRIBUT primary key clustered (ITAT_ID)
-);
-
-/*==============================================================*/
-/* Index: ITEM_ATTRIBUT_PK                                      */
-/*==============================================================*/
-create unique clustered index ITEM_ATTRIBUT_PK on ITEM_ATTRIBUT (
-ITAT_ID ASC
-);
-
-/*==============================================================*/
 /* Table: KOENIGREICH                                           */
 /*==============================================================*/
 create or replace table KOENIGREICH 
@@ -1543,18 +1471,6 @@ alter table ATTRIBUTE
       on update restrict
       on delete restrict;
 
-alter table ATTRIBUT_TO_ITEM
-   add constraint FK_ATTRIBUT_AUF_ITEM foreign key (ITEM_ID)
-      references ITEM (ITEM_ID)
-      on update restrict
-      on delete restrict;
-
-alter table ATTRIBUT_TO_ITEM
-   add constraint FK_ATTRIBUT_HAT_ITEM_ATT foreign key (ITAT_ID)
-      references ITEM_ATTRIBUT (ITAT_ID)
-      on update restrict
-      on delete restrict;
-
 alter table AUKTION
    add constraint FK_AUKTION_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID)
@@ -1664,7 +1580,7 @@ alter table GEBAEUDE_TO_GEBAEUDEEIGENSCHAFT
       on delete restrict;
 
 alter table GEBAEUDE_TO_GEBAEUDEEIGENSCHAFT
-   add constraint FK_GEBAEUDE_HAT2_GEBAEUDE foreign key (GE_ID)
+   add constraint FK_GEBAEUDE_HAT_GEBAEUDE foreign key (GE_ID)
       references GEBAEUDE_EIGENSCHAFT (GE_ID)
       on update restrict
       on delete restrict;
