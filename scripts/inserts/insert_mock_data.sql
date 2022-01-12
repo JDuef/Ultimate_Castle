@@ -108,15 +108,15 @@ VALUES (18,15,6);
 
 /* AUKTION */
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (1,1,11,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (2,3,1,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (3,1,12,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (4,8,5,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (5,18,15,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 
 /* GEBOT */
 INSERT INTO GEBOT(gebot_id,acc_id,auk_id,gebot_wert)
