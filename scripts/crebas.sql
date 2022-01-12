@@ -1133,4 +1133,3 @@ alter table USER_TO_ADMIN
 alter table USER_TO_ADMIN
    add constraint FK_USER_TO__WIRD_GEFU_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID);
-
