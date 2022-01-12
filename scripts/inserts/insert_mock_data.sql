@@ -108,15 +108,15 @@ VALUES (18,15,6);
 
 /* AUKTION */
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,'2021-08-03 05:33:32','2020-12-24 19:49:45');
+VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,'2021-08-03 05:33:32','2020-12-24 19:49:45');
+VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,'2021-08-03 05:33:32','2020-12-24 19:49:45');
+VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,'2021-08-03 05:33:32','2020-12-24 19:49:45');
+VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,3,4,'2021-08-03 05:33:32','2020-12-24 19:49:45');
+VALUES (1,3,4,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 
 /* GEBOT */
 INSERT INTO GEBOT(gebot_id,acc_id,auk_id,gebot_wert)
@@ -222,45 +222,45 @@ VALUES (50,2,5,19);
 
 /* BESTELLUNG */
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (1,20,'2021-09-12 01:31:57',26);
+VALUES (1,20,TO_DATE('2021-09-12 01:31:57', 'yyyy/mm/dd hh24:mi:ss'),26);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (2,19,'2021-04-23 17:17:06',9);
+VALUES (2,19,TO_DATE('2021-04-23 17:17:06', 'yyyy/mm/dd hh24:mi:ss'),9);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (3,18,'2021-04-03 21:08:56',39);
+VALUES (3,18,TO_DATE('2021-04-03 21:08:56', 'yyyy/mm/dd hh24:mi:ss'),39);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (4,17,'2021-01-19 15:29:09',35);
+VALUES (4,17,TO_DATE('2021-01-19 15:29:09', 'yyyy/mm/dd hh24:mi:ss'),35);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (5,16,'2021-06-14 18:24:51',15);
+VALUES (5,16,TO_DATE('2021-06-14 18:24:51', 'yyyy/mm/dd hh24:mi:ss'),15);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (6,15,'2021-01-11 17:18:01',32);
+VALUES (6,15,TO_DATE('2021-01-11 17:18:01', 'yyyy/mm/dd hh24:mi:ss'),32);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (7,13,'2021-11-27 22:38:22',37);
+VALUES (7,13,TO_DATE('2021-11-27 22:38:22', 'yyyy/mm/dd hh24:mi:ss'),37);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (8,13,'2021-01-21 16:18:42',42);
+VALUES (8,13,TO_DATE('2021-01-21 16:18:42', 'yyyy/mm/dd hh24:mi:ss'),42);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (9,12,'2021-10-17 01:18:00',21);
+VALUES (9,12,TO_DATE('2021-10-17 01:18:00', 'yyyy/mm/dd hh24:mi:ss'),21);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (10,11,'2021-01-10 05:41:45',2);
+VALUES (10,11,TO_DATE('2021-01-10 05:41:45', 'yyyy/mm/dd hh24:mi:ss'),2);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (11,10,'2020-12-23 10:11:03',29);
+VALUES (11,10,TO_DATE('2020-12-23 10:11:03', 'yyyy/mm/dd hh24:mi:ss'),29);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (12,9,'2021-02-22 03:59:38',13);
+VALUES (12,9,TO_DATE('2021-02-22 03:59:38', 'yyyy/mm/dd hh24:mi:ss'),13);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (13,8,'2021-10-27 02:23:17',31);
+VALUES (13,8,TO_DATE('2021-10-27 02:23:17', 'yyyy/mm/dd hh24:mi:ss'),31);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (14,7,'2021-09-08 17:15:30',49);
+VALUES (14,7,TO_DATE('2021-09-08 17:15:30', 'yyyy/mm/dd hh24:mi:ss'),49);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (15,6,'2021-06-30 19:33:21',23);
+VALUES (15,6,TO_DATE('2021-06-30 19:33:21', 'yyyy/mm/dd hh24:mi:ss'),23);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (16,5,'2021-06-14 10:20:45',49);
+VALUES (16,5,TO_DATE('2021-06-14 10:20:45', 'yyyy/mm/dd hh24:mi:ss'),49);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (17,4,'2021-01-13 19:15:37',17);
+VALUES (17,4,TO_DATE('2021-01-13 19:15:37', 'yyyy/mm/dd hh24:mi:ss'),17);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (18,3,'2021-03-21 07:52:36',4);
+VALUES (18,3,TO_DATE('2021-03-21 07:52:36', 'yyyy/mm/dd hh24:mi:ss'),4);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (19,2,'2021-04-01 16:19:45',25);
+VALUES (19,2,TO_DATE('2021-04-01 16:19:45', 'yyyy/mm/dd hh24:mi:ss'),25);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (20,1,'2021-09-14 18:53:54',8);
+VALUES (20,1,TO_DATE('2021-09-14 18:53:54', 'yyyy/mm/dd hh24:mi:ss'),8);
 
 /* BESTELLUNG_TO_ITEM */
 INSERT INTO BESTELLUNG_TO_ITEM(best_id,item_id,anzahl)
