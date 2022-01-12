@@ -32,13 +32,13 @@ VALUES (13,1,'sgrimwadc','Eg20sJOxbs','mcobelloc@amazonaws.com',TO_DATE('2021-07
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
 VALUES (14,1,'lthreshd','JVDJIVthCo9f','ebarberad@adobe.com',TO_DATE('2021-09-11 11:04:23', 'yyyy/mm/dd hh24:mi:ss'),1,'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
-VALUES (15,1,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_DATE('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce';
+VALUES (15,1,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_DATE('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
 VALUES (16,1,'areddyf','N58ME93g6BI','cshottonf@amazon.de',TO_DATE('2021-03-10 11:52:46', 'yyyy/mm/dd hh24:mi:ss'),0,'a16227ef49f64c0316436734b10fbd95847930ff');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
 VALUES (17,1,'ipunchg','EZhi5f7VDaq','ebracknallg@technorati.com',TO_DATE('2021-01-18 11:45:41', 'yyyy/mm/dd hh24:mi:ss'),1,'ba7715050c110dd26276f1d723cf39f5562af20e');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
-VALUES (18,1,'kcoulsenh','ZYco1Ys7S,zclaisseh@blog.com',TO_DATE('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
+VALUES (18,1,'kcoulsenh','ZYco1Ys7S','zclaisseh@blog.com',TO_DATE('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
 VALUES (9,1,'cjaimezi','o6ZZ0D','sbartkei@cnn.com',TO_DATE('2021-01-07 12:07:26', 'yyyy/mm/dd hh24:mi:ss'),1,'75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
 INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
@@ -50,7 +50,7 @@ VALUES (1,'general booster (20 h)','boosted die produktion aller rohstoffe fuer 
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)
 VALUES (2,'general booster (10 h)','boosted die produktion aller rohstoffe fuer 10 stunden',7,0);
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)
-VALUES (3,'general booster (1 h)','boosted die produktion aller rohstoffe fuer 1 stunden',2,1;
+VALUES (3,'general booster (1 h)','boosted die produktion aller rohstoffe fuer 1 stunden',2,1);
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)
 VALUES (4,'lehm booster (40 h)','boosted die lehm produktion fuer 40 stunden',9,0);
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)
