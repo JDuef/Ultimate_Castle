@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 19c                           */
-/* Created on:     12.01.2022 12:35:19                          */
+/* Created on:     12.01.2022 12:39:30                          */
 /*==============================================================*/
 
 
@@ -773,13 +773,13 @@ create table GEBAEUDE_EIGENSCHAFT (
 /* Table: GEBOT                                                 */
 /*==============================================================*/
 create table GEBOT (
-   GEBO_ID              INTEGER               not null,
+   GEBOT_ID             INTEGER               not null,
    AUK_ACC_ID           INTEGER,
    ITEM_ID              INTEGER,
    AUK_ID               INTEGER,
    ACC_ID               INTEGER,
    GEBOT_WERT           INTEGER               not null,
-   constraint PK_GEBOT primary key (GEBO_ID)
+   constraint PK_GEBOT primary key (GEBOT_ID)
 );
 
 /*==============================================================*/
