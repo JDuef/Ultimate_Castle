@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 19c                           */
-/* Created on:     11.01.2022 15:44:27                          */
+/* Created on:     12.01.2022 12:35:19                          */
 /*==============================================================*/
 
 
@@ -309,7 +309,7 @@ create table ACCOUNT (
    ACC_USERNAME         VARCHAR2(100)         not null,
    ACC_PASSWORD         VARCHAR2(100)         not null,
    ACC_EMAIL            VARCHAR2(100)         not null,
-   ACC_LETZER_LOGIN     DATE,
+   ACC_LETZTER_LOGIN    DATE,
    ACC_PREMIUM          SMALLINT,
    ACC_PAYMENT_TOKEN    VARCHAR2(1024),
    constraint PK_ACCOUNT primary key (ACC_ID)
@@ -342,6 +342,7 @@ create index KOENIGREICH_TO_ACCOUNT2_FK on ACCOUNT (
 create table ACCOUNT_TO_ITEM (
    ITEM_ID              INTEGER               not null,
    ACC_ID               INTEGER               not null,
+   ANZAHL               INTEGER               not null,
    constraint PK_ACCOUNT_TO_ITEM primary key (ITEM_ID, ACC_ID)
 );
 
@@ -529,6 +530,7 @@ create index KAUF_FK on BESTELLUNG (
 create table BESTELLUNG_TO_ITEM (
    BEST_ID              INTEGER               not null,
    ITEM_ID              INTEGER               not null,
+   ANZAHL               INTEGER,
    constraint PK_BESTELLUNG_TO_ITEM primary key (BEST_ID, ITEM_ID)
 );
 
@@ -776,7 +778,7 @@ create table GEBOT (
    ITEM_ID              INTEGER,
    AUK_ID               INTEGER,
    ACC_ID               INTEGER,
-   GEBO_WERT            INTEGER               not null,
+   GEBOT_WERT           INTEGER               not null,
    constraint PK_GEBOT primary key (GEBO_ID)
 );
 
