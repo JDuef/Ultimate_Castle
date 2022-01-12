@@ -1,17 +1,11 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 19c                           */
-/* Created on:     11.01.2022 15:44:27                          */
+/* Created on:     12.01.2022 15:21:50                          */
 /*==============================================================*/
 
 
 alter table ACCOUNT
-   drop constraint FK_ACCOUNT_KOENIGREI_KOENIGRE;
-
-alter table ACCOUNT
    drop constraint FK_ACCOUNT_USER_TO_A_ALLIANZ;
-
-alter table ACCOUNT
-   drop constraint FK_ACCOUNT_ZUGEHOERI_WELT;
 
 alter table ACCOUNT_TO_ITEM
    drop constraint FK_ACCOUNT__BESITZT2_ITEM;
@@ -50,7 +44,7 @@ alter table AUKTION
    drop constraint FK_AUKTION_ACCOUNT_T_ACCOUNT;
 
 alter table AUKTION
-   drop constraint FK_AUKTION_RELATIONS_ITEM;
+   drop constraint FK_AUKTION_AUTKION_T_ITEM;
 
 alter table BESTELLUNG
    drop constraint FK_BESTELLU_KAUF_ACCOUNT;
@@ -64,14 +58,17 @@ alter table BESTELLUNG_TO_ITEM
 alter table BURG
    drop constraint FK_BURG_KONIGREIC_KOENIGRE;
 
+alter table BURG_TO_GEBAEUDE
+   drop constraint FK_BURG_TO__BESITZT_GEBAEUDE;
+
+alter table BURG_TO_GEBAEUDE
+   drop constraint FK_BURG_TO__GEHORT_ZU_BURG;
+
 alter table CHATNACHRICHT
    drop constraint FK_CHATNACH_NACHRICHT_ACCOUNT;
 
 alter table CHATNACHRICHT
    drop constraint FK_CHATNACH_USER_TO_N_ACCOUNT;
-
-alter table CHATROOM
-   drop constraint FK_CHATROOM_ADMIN_TO__ADMINIST;
 
 alter table CHATROOM
    drop constraint FK_CHATROOM_ALLIANZ_T_ALLIANZ;
@@ -83,7 +80,7 @@ alter table CHATROOM_NACHRICHT
    drop constraint FK_CHATROOM_USER_TO_C_ACCOUNT;
 
 alter table EINHEIT
-   drop constraint FK_EINHEIT_GEBAUEDE__GEBAEUDE;
+   drop constraint FK_EINHEIT_GEB_VOR_E_GEBAEUDE;
 
 alter table EINHEIT
    drop constraint FK_EINHEIT_GEHOERT_BURG;
@@ -121,6 +118,9 @@ alter table GRUPPE
 alter table KOENIGREICH
    drop constraint FK_KOENIGRE_KOENIGREI_ACCOUNT;
 
+alter table KOENIGREICH
+   drop constraint FK_KOENIGRE_ZUGEHOERI_WELT;
+
 alter table KOMMENTAR
    drop constraint FK_KOMMENTA_EINTRAG_T_EINTRAG;
 
@@ -130,21 +130,11 @@ alter table KOMMENTAR
 alter table KRIEGSBEUTE
    drop constraint FK_KRIEGSBE_KRIEGSBEU_ANGRIFF;
 
-alter table SPEICHERLEVEL
-   drop constraint FK_SPEICHER_BESITZT_GEBAEUDE;
-
-alter table SPEICHERLEVEL
-   drop constraint FK_SPEICHER_GEHORT_ZU_BURG;
-
 alter table USER_TO_ADMIN
    drop constraint FK_USER_TO__IST_TEIL_ADMINIST;
 
 alter table USER_TO_ADMIN
    drop constraint FK_USER_TO__WIRD_GEFU_ACCOUNT;
-
-drop index KOENIGREICH_TO_ACCOUNT2_FK;
-
-drop index ZUGEHOERIG_FK;
 
 drop index USER_TO_ALLIANZ_FK;
 
@@ -184,7 +174,7 @@ drop index AUF_FK;
 
 drop table ATTRIBUT_TO_ITEM cascade constraints;
 
-drop index RELATIONSHIP_8_FK;
+drop index AUTKION_TO_ITEM_FK;
 
 drop index ACCOUNT_TO_AUKTION_FK;
 
@@ -204,13 +194,17 @@ drop index KONIGREICHBURG_FK;
 
 drop table BURG cascade constraints;
 
+drop index BESITZT_FK;
+
+drop index GEHORT_ZU_FK;
+
+drop table BURG_TO_GEBAEUDE cascade constraints;
+
 drop index USER_TO_NACHRICHT_FK;
 
 drop index NACHRICHT_TO_USER_FK;
 
 drop table CHATNACHRICHT cascade constraints;
-
-drop index ADMIN_TO_CHATROOM_FK;
 
 drop index ALLIANZ_TO_CHATROOM_FK;
 
@@ -222,7 +216,7 @@ drop index CR_NACHRICHT_TO_CHATROOM_FK;
 
 drop table CHATROOM_NACHRICHT cascade constraints;
 
-drop index GEB_VORRAUSETZUNG_EINHEIT_FK;
+drop index GEB_VOR_EIN_FK;
 
 drop index GEHOERT_FK;
 
@@ -272,6 +266,8 @@ drop table ITEM_ATTRIBUT cascade constraints;
 
 drop index KOENIGREICH_TO_ACCOUNT_FK;
 
+drop index ZUGEHOERIG_FK;
+
 drop table KOENIGREICH cascade constraints;
 
 drop index USER_TO_KOMMENTAR_FK;
@@ -283,12 +279,6 @@ drop table KOMMENTAR cascade constraints;
 drop index KRIEGSBEUTE_FK;
 
 drop table KRIEGSBEUTE cascade constraints;
-
-drop index BESITZT_FK;
-
-drop index GEHORT_ZU_FK;
-
-drop table SPEICHERLEVEL cascade constraints;
 
 drop index IST_TEIL_FK;
 
@@ -303,13 +293,11 @@ drop table WELT cascade constraints;
 /*==============================================================*/
 create table ACCOUNT (
    ACC_ID               INTEGER               not null,
-   WELT_ID              INTEGER               not null,
-   KOE_ID               INTEGER,
    AL_ID                INTEGER,
    ACC_USERNAME         VARCHAR2(100)         not null,
    ACC_PASSWORD         VARCHAR2(100)         not null,
    ACC_EMAIL            VARCHAR2(100)         not null,
-   ACC_LETZER_LOGIN     DATE,
+   ACC_LETZTER_LOGIN    TIMESTAMP,
    ACC_PREMIUM          SMALLINT,
    ACC_PAYMENT_TOKEN    VARCHAR2(1024),
    constraint PK_ACCOUNT primary key (ACC_ID)
@@ -323,25 +311,12 @@ create index USER_TO_ALLIANZ_FK on ACCOUNT (
 );
 
 /*==============================================================*/
-/* Index: ZUGEHOERIG_FK                                         */
-/*==============================================================*/
-create index ZUGEHOERIG_FK on ACCOUNT (
-   WELT_ID ASC
-);
-
-/*==============================================================*/
-/* Index: KOENIGREICH_TO_ACCOUNT2_FK                            */
-/*==============================================================*/
-create index KOENIGREICH_TO_ACCOUNT2_FK on ACCOUNT (
-   KOE_ID ASC
-);
-
-/*==============================================================*/
 /* Table: ACCOUNT_TO_ITEM                                       */
 /*==============================================================*/
 create table ACCOUNT_TO_ITEM (
    ITEM_ID              INTEGER               not null,
    ACC_ID               INTEGER               not null,
+   ANZAHL               INTEGER               not null,
    constraint PK_ACCOUNT_TO_ITEM primary key (ITEM_ID, ACC_ID)
 );
 
@@ -384,7 +359,7 @@ create table ALLIANZ (
    AD_ID                INTEGER               not null,
    AL_NAME              CLOB                  not null,
    AL_BESCHREIBUNG      CLOB,
-   AL_DATE_OF_CREATION  DATE,
+   AL_DATE_OF_CREATION  TIMESTAMP,
    constraint PK_ALLIANZ primary key (AL_ID)
 );
 
@@ -407,10 +382,10 @@ create index VERWALTET_FK on ALLIANZ (
 /*==============================================================*/
 create table ANGRIFF (
    ANGRIFF_ID           INTEGER               not null,
-   BU_POSITION          INTEGER               not null,
-   BUR_BU_POSITION      INTEGER               not null,
+   BU_ID                INTEGER               not null,
+   BUR_BU_ID            INTEGER               not null,
    GRUPPE_ID            INTEGER               not null,
-   ANGRIFF_GEPLANT_AM   DATE                  not null,
+   ANGRIFF_GEPLANT_AM   TIMESTAMP             not null,
    ANGRIFF_STATUS       VARCHAR2(20)          not null
       constraint CKC_ANGRIFF_STATUS_ANGRIFF check (ANGRIFF_STATUS in ('Geplant','Gewonnen','Verloren','<Val16>')),
    constraint PK_ANGRIFF primary key (ANGRIFF_ID)
@@ -420,7 +395,7 @@ create table ANGRIFF (
 /* Index: VERTEIDIGER_BURG_FK                                   */
 /*==============================================================*/
 create index VERTEIDIGER_BURG_FK on ANGRIFF (
-   BU_POSITION ASC
+   BU_ID ASC
 );
 
 /*==============================================================*/
@@ -434,7 +409,7 @@ create index BEWEGUNG_GRP_FK on ANGRIFF (
 /* Index: ANGREIFER_BURG_FK                                     */
 /*==============================================================*/
 create index ANGREIFER_BURG_FK on ANGRIFF (
-   BUR_BU_POSITION ASC
+   BUR_BU_ID ASC
 );
 
 /*==============================================================*/
@@ -483,12 +458,12 @@ create index HAT_FK on ATTRIBUT_TO_ITEM (
 /* Table: AUKTION                                               */
 /*==============================================================*/
 create table AUKTION (
-   ACC_ID               INTEGER               not null,
-   ITEM_ID              INTEGER               not null,
    AUK_ID               INTEGER               not null,
-   AUK_START_DATUM      DATE                  not null,
-   AUK_END_DATUM        DATE                  not null,
-   constraint PK_AUKTION primary key (ACC_ID, ITEM_ID, AUK_ID)
+   ITEM_ID              INTEGER               not null,
+   ACC_ID               INTEGER               not null,
+   AUK_START_DATUM      TIMESTAMP             not null,
+   AUK_END_DATUM        TIMESTAMP             not null,
+   constraint PK_AUKTION primary key (AUK_ID)
 );
 
 /*==============================================================*/
@@ -499,9 +474,9 @@ create index ACCOUNT_TO_AUKTION_FK on AUKTION (
 );
 
 /*==============================================================*/
-/* Index: RELATIONSHIP_8_FK                                     */
+/* Index: AUTKION_TO_ITEM_FK                                    */
 /*==============================================================*/
-create index RELATIONSHIP_8_FK on AUKTION (
+create index AUTKION_TO_ITEM_FK on AUKTION (
    ITEM_ID ASC
 );
 
@@ -510,8 +485,8 @@ create index RELATIONSHIP_8_FK on AUKTION (
 /*==============================================================*/
 create table BESTELLUNG (
    BEST_ID              INTEGER               not null,
-   ACC_ID               INTEGER,
-   BEST_DATUM           DATE                  not null,
+   ACC_ID               INTEGER               not null,
+   BEST_DATUM           TIMESTAMP             not null,
    BEST_WERT            INTEGER               not null,
    constraint PK_BESTELLUNG primary key (BEST_ID)
 );
@@ -529,6 +504,7 @@ create index KAUF_FK on BESTELLUNG (
 create table BESTELLUNG_TO_ITEM (
    BEST_ID              INTEGER               not null,
    ITEM_ID              INTEGER               not null,
+   BEST_ITEM_ANZAHL     INTEGER               not null,
    constraint PK_BESTELLUNG_TO_ITEM primary key (BEST_ID, ITEM_ID)
 );
 
@@ -550,13 +526,15 @@ create index BEINHALTET2_FK on BESTELLUNG_TO_ITEM (
 /* Table: BURG                                                  */
 /*==============================================================*/
 create table BURG (
-   BU_POSITION          INTEGER               not null,
+   BU_ID                INTEGER               not null,
    KOE_ID               INTEGER               not null,
    BU_BURGNAME          CLOB                  not null,
    BU_LEHM              INTEGER               not null,
    BU_EISEN             INTEGER               not null,
    BU_HOLZ              INTEGER               not null,
-   constraint PK_BURG primary key (BU_POSITION)
+   BU_POSITION_X        INTEGER               not null,
+   BU_POSITION_Y        INTEGER               not null,
+   constraint PK_BURG primary key (BU_ID)
 );
 
 /*==============================================================*/
@@ -567,6 +545,29 @@ create index KONIGREICHBURG_FK on BURG (
 );
 
 /*==============================================================*/
+/* Table: BURG_TO_GEBAEUDE                                      */
+/*==============================================================*/
+create table BURG_TO_GEBAEUDE (
+   BU_ID                INTEGER               not null,
+   GEB_ID               INTEGER               not null,
+   constraint PK_BURG_TO_GEBAEUDE primary key (BU_ID, GEB_ID)
+);
+
+/*==============================================================*/
+/* Index: GEHORT_ZU_FK                                          */
+/*==============================================================*/
+create index GEHORT_ZU_FK on BURG_TO_GEBAEUDE (
+   BU_ID ASC
+);
+
+/*==============================================================*/
+/* Index: BESITZT_FK                                            */
+/*==============================================================*/
+create index BESITZT_FK on BURG_TO_GEBAEUDE (
+   GEB_ID ASC
+);
+
+/*==============================================================*/
 /* Table: CHATNACHRICHT                                         */
 /*==============================================================*/
 create table CHATNACHRICHT (
@@ -574,7 +575,7 @@ create table CHATNACHRICHT (
    ACC_ID               INTEGER               not null,
    ACC_ACC_ID           INTEGER               not null,
    CN_INHALT            CLOB                  not null,
-   CN_DATE_OF_CREATION  DATE                  not null,
+   CN_DATE_OF_CREATION  TIMESTAMP             not null,
    constraint PK_CHATNACHRICHT primary key (CN_ID)
 );
 
@@ -597,10 +598,9 @@ create index USER_TO_NACHRICHT_FK on CHATNACHRICHT (
 /*==============================================================*/
 create table CHATROOM (
    CR_ID                INTEGER               not null,
-   AD_ID                INTEGER               not null,
    AL_ID                INTEGER               not null,
    CR_TOPIC             CLOB                  not null,
-   CR_DATE_OF_CREATION  DATE                  not null,
+   CR_DATE_OF_CREATION  TIMESTAMP             not null,
    constraint PK_CHATROOM primary key (CR_ID)
 );
 
@@ -612,13 +612,6 @@ create index ALLIANZ_TO_CHATROOM_FK on CHATROOM (
 );
 
 /*==============================================================*/
-/* Index: ADMIN_TO_CHATROOM_FK                                  */
-/*==============================================================*/
-create index ADMIN_TO_CHATROOM_FK on CHATROOM (
-   AD_ID ASC
-);
-
-/*==============================================================*/
 /* Table: CHATROOM_NACHRICHT                                    */
 /*==============================================================*/
 create table CHATROOM_NACHRICHT (
@@ -626,7 +619,7 @@ create table CHATROOM_NACHRICHT (
    ACC_ID               INTEGER               not null,
    CR_ID                INTEGER               not null,
    CRN_INHALT           CLOB                  not null,
-   CRN_DATE_OF_CREATION DATE                  not null,
+   CRN_DATE_OF_CREATION TIMESTAMP             not null,
    constraint PK_CHATROOM_NACHRICHT primary key (CRN_ID)
 );
 
@@ -649,7 +642,7 @@ create index USER_TO_CR_NACHRICHT_FK on CHATROOM_NACHRICHT (
 /*==============================================================*/
 create table EINHEIT (
    EINHEIT_ID           INTEGER               not null,
-   BU_POSITION          INTEGER,
+   BU_ID                INTEGER,
    GEB_ID               INTEGER               not null,
    EINHEIT_NAME         VARCHAR2(50)          not null,
    EINHEIT_KLASSE       VARCHAR2(50)          not null
@@ -664,13 +657,13 @@ create table EINHEIT (
 /* Index: GEHOERT_FK                                            */
 /*==============================================================*/
 create index GEHOERT_FK on EINHEIT (
-   BU_POSITION ASC
+   BU_ID ASC
 );
 
 /*==============================================================*/
-/* Index: GEB_VORRAUSETZUNG_EINHEIT_FK                          */
+/* Index: GEB_VOR_EIN_FK                                        */
 /*==============================================================*/
-create index GEB_VORRAUSETZUNG_EINHEIT_FK on EINHEIT (
+create index GEB_VOR_EIN_FK on EINHEIT (
    GEB_ID ASC
 );
 
@@ -709,7 +702,7 @@ create table EINTRAG (
    FO_ID                INTEGER               not null,
    EI_TITEL             CLOB                  not null,
    EI_INALT             CLOB                  not null,
-   EI_DATE_OF_CREATION  DATE                  not null,
+   EI_DATE_OF_CREATION  TIMESTAMP             not null,
    constraint PK_EINTRAG primary key (EI_ID)
 );
 
@@ -733,7 +726,7 @@ create index USER_TO_EINTRAG_FK on EINTRAG (
 create table FORUM (
    FO_ID                INTEGER               not null,
    AD_ID                INTEGER               not null,
-   FO_DATE_OF_CREATION  DATE                  not null,
+   FO_DATE_OF_CREATION  TIMESTAMP             not null,
    FO_TOPIC             CLOB                  not null,
    constraint PK_FORUM primary key (FO_ID)
 );
@@ -771,13 +764,11 @@ create table GEBAEUDE_EIGENSCHAFT (
 /* Table: GEBOT                                                 */
 /*==============================================================*/
 create table GEBOT (
-   GEBO_ID              INTEGER               not null,
-   AUK_ACC_ID           INTEGER,
-   ITEM_ID              INTEGER,
-   AUK_ID               INTEGER,
-   ACC_ID               INTEGER,
-   GEBO_WERT            INTEGER               not null,
-   constraint PK_GEBOT primary key (GEBO_ID)
+   GEBOT_ID             INTEGER               not null,
+   AUK_ID               INTEGER               not null,
+   ACC_ID               INTEGER               not null,
+   GEBOT_WERT           INTEGER               not null,
+   constraint PK_GEBOT primary key (GEBOT_ID)
 );
 
 /*==============================================================*/
@@ -791,8 +782,6 @@ create index ACCOUNT_TO_GEBOT_FK on GEBOT (
 /* Index: AUKTION_TO_GEBOT_FK                                   */
 /*==============================================================*/
 create index AUKTION_TO_GEBOT_FK on GEBOT (
-   AUK_ACC_ID ASC,
-   ITEM_ID ASC,
    AUK_ID ASC
 );
 
@@ -859,8 +848,9 @@ create table ITEM (
 /*==============================================================*/
 create table ITEM_ATTRIBUT (
    ITAT_ID              INTEGER               not null,
-   ITAT_ATTRIBUTTYP     VARCHAR2(1024)        not null,
-   ITAT_EFFEKT          VARCHAR2(1024)        not null,
+   ITAT_ATTRIBUTTYP     VARCHAR2(1024)        not null
+      constraint CKC_ITAT_ATTRIBUTTYP_ITEM_ATT check (ITAT_ATTRIBUTTYP in ('LEHM_BOOSTER','HOLZ_BOOSTER','EISEN_BOOSTER','EINHEIT_PROD_BOOSTER','GENERAL_BOOSTER')),
+   ITAT_VALUE           INTEGER               not null,
    constraint PK_ITEM_ATTRIBUT primary key (ITAT_ID)
 );
 
@@ -871,8 +861,16 @@ create table KOENIGREICH (
    KOE_WAPPEN           INTEGER               not null,
    KOE_RUHM             INTEGER               not null,
    KOE_ID               INTEGER               not null,
+   WELT_ID              INTEGER               not null,
    ACC_ID               INTEGER               not null,
    constraint PK_KOENIGREICH primary key (KOE_ID)
+);
+
+/*==============================================================*/
+/* Index: ZUGEHOERIG_FK                                         */
+/*==============================================================*/
+create index ZUGEHOERIG_FK on KOENIGREICH (
+   WELT_ID ASC
 );
 
 /*==============================================================*/
@@ -890,7 +888,7 @@ create table KOMMENTAR (
    EI_ID                INTEGER               not null,
    ACC_ID               INTEGER               not null,
    KO_INHALT            CLOB                  not null,
-   KO_DATE_OF_CREATION  DATE                  not null,
+   KO_DATE_OF_CREATION  TIMESTAMP             not null,
    constraint PK_KOMMENTAR primary key (KO_ID)
 );
 
@@ -924,29 +922,6 @@ create table KRIEGSBEUTE (
 /*==============================================================*/
 create index KRIEGSBEUTE_FK on KRIEGSBEUTE (
    ANGRIFF_ID ASC
-);
-
-/*==============================================================*/
-/* Table: SPEICHERLEVEL                                         */
-/*==============================================================*/
-create table SPEICHERLEVEL (
-   BU_POSITION          INTEGER               not null,
-   GEB_ID               INTEGER               not null,
-   constraint PK_SPEICHERLEVEL primary key (BU_POSITION, GEB_ID)
-);
-
-/*==============================================================*/
-/* Index: GEHORT_ZU_FK                                          */
-/*==============================================================*/
-create index GEHORT_ZU_FK on SPEICHERLEVEL (
-   BU_POSITION ASC
-);
-
-/*==============================================================*/
-/* Index: BESITZT_FK                                            */
-/*==============================================================*/
-create index BESITZT_FK on SPEICHERLEVEL (
-   GEB_ID ASC
 );
 
 /*==============================================================*/
@@ -984,16 +959,8 @@ create table WELT (
 );
 
 alter table ACCOUNT
-   add constraint FK_ACCOUNT_KOENIGREI_KOENIGRE foreign key (KOE_ID)
-      references KOENIGREICH (KOE_ID);
-
-alter table ACCOUNT
    add constraint FK_ACCOUNT_USER_TO_A_ALLIANZ foreign key (AL_ID)
       references ALLIANZ (AL_ID);
-
-alter table ACCOUNT
-   add constraint FK_ACCOUNT_ZUGEHOERI_WELT foreign key (WELT_ID)
-      references WELT (WELT_ID);
 
 alter table ACCOUNT_TO_ITEM
    add constraint FK_ACCOUNT__BESITZT2_ITEM foreign key (ITEM_ID)
@@ -1016,16 +983,16 @@ alter table ALLIANZ
       references ADMINISTRATION (AD_ID);
 
 alter table ANGRIFF
-   add constraint FK_ANGRIFF_ANGREIFER_BURG foreign key (BUR_BU_POSITION)
-      references BURG (BU_POSITION);
+   add constraint FK_ANGRIFF_ANGREIFER_BURG foreign key (BUR_BU_ID)
+      references BURG (BU_ID);
 
 alter table ANGRIFF
    add constraint FK_ANGRIFF_BEWEGUNG__EINHEIT_ foreign key (GRUPPE_ID)
       references EINHEIT_GRUPPE (GRUPPE_ID);
 
 alter table ANGRIFF
-   add constraint FK_ANGRIFF_VERTEIDIG_BURG foreign key (BU_POSITION)
-      references BURG (BU_POSITION);
+   add constraint FK_ANGRIFF_VERTEIDIG_BURG foreign key (BU_ID)
+      references BURG (BU_ID);
 
 alter table ATTRIBUTE
    add constraint FK_ATTRIBUT_ATTRIB_EI_EINHEIT_ foreign key (EINHEIT_ATTRIBU_ID)
@@ -1044,7 +1011,7 @@ alter table AUKTION
       references ACCOUNT (ACC_ID);
 
 alter table AUKTION
-   add constraint FK_AUKTION_RELATIONS_ITEM foreign key (ITEM_ID)
+   add constraint FK_AUKTION_AUTKION_T_ITEM foreign key (ITEM_ID)
       references ITEM (ITEM_ID);
 
 alter table BESTELLUNG
@@ -1063,6 +1030,14 @@ alter table BURG
    add constraint FK_BURG_KONIGREIC_KOENIGRE foreign key (KOE_ID)
       references KOENIGREICH (KOE_ID);
 
+alter table BURG_TO_GEBAEUDE
+   add constraint FK_BURG_TO__BESITZT_GEBAEUDE foreign key (GEB_ID)
+      references GEBAEUDE (GEB_ID);
+
+alter table BURG_TO_GEBAEUDE
+   add constraint FK_BURG_TO__GEHORT_ZU_BURG foreign key (BU_ID)
+      references BURG (BU_ID);
+
 alter table CHATNACHRICHT
    add constraint FK_CHATNACH_NACHRICHT_ACCOUNT foreign key (ACC_ACC_ID)
       references ACCOUNT (ACC_ID);
@@ -1070,10 +1045,6 @@ alter table CHATNACHRICHT
 alter table CHATNACHRICHT
    add constraint FK_CHATNACH_USER_TO_N_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID);
-
-alter table CHATROOM
-   add constraint FK_CHATROOM_ADMIN_TO__ADMINIST foreign key (AD_ID)
-      references ADMINISTRATION (AD_ID);
 
 alter table CHATROOM
    add constraint FK_CHATROOM_ALLIANZ_T_ALLIANZ foreign key (AL_ID)
@@ -1088,12 +1059,12 @@ alter table CHATROOM_NACHRICHT
       references ACCOUNT (ACC_ID);
 
 alter table EINHEIT
-   add constraint FK_EINHEIT_GEBAUEDE__GEBAEUDE foreign key (GEB_ID)
+   add constraint FK_EINHEIT_GEB_VOR_E_GEBAEUDE foreign key (GEB_ID)
       references GEBAEUDE (GEB_ID);
 
 alter table EINHEIT
-   add constraint FK_EINHEIT_GEHOERT_BURG foreign key (BU_POSITION)
-      references BURG (BU_POSITION);
+   add constraint FK_EINHEIT_GEHOERT_BURG foreign key (BU_ID)
+      references BURG (BU_ID);
 
 alter table EINHEIT_ATTRIBUT
    add constraint FK_EINHEIT__EINHEIT_A_EINHEIT foreign key (EINHEIT_ID)
@@ -1116,8 +1087,8 @@ alter table GEBOT
       references ACCOUNT (ACC_ID);
 
 alter table GEBOT
-   add constraint FK_GEBOT_AUKTION_T_AUKTION foreign key (AUK_ACC_ID, ITEM_ID, AUK_ID)
-      references AUKTION (ACC_ID, ITEM_ID, AUK_ID);
+   add constraint FK_GEBOT_AUKTION_T_AUKTION foreign key (AUK_ID)
+      references AUKTION (AUK_ID);
 
 alter table GEB_TO_GEBEIG
    add constraint FK_GEB_TO_G_GEHORT2_GEBAEUDE foreign key (GEB_ID)
@@ -1139,6 +1110,10 @@ alter table KOENIGREICH
    add constraint FK_KOENIGRE_KOENIGREI_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID);
 
+alter table KOENIGREICH
+   add constraint FK_KOENIGRE_ZUGEHOERI_WELT foreign key (WELT_ID)
+      references WELT (WELT_ID);
+
 alter table KOMMENTAR
    add constraint FK_KOMMENTA_EINTRAG_T_EINTRAG foreign key (EI_ID)
       references EINTRAG (EI_ID);
@@ -1150,14 +1125,6 @@ alter table KOMMENTAR
 alter table KRIEGSBEUTE
    add constraint FK_KRIEGSBE_KRIEGSBEU_ANGRIFF foreign key (ANGRIFF_ID)
       references ANGRIFF (ANGRIFF_ID);
-
-alter table SPEICHERLEVEL
-   add constraint FK_SPEICHER_BESITZT_GEBAEUDE foreign key (GEB_ID)
-      references GEBAEUDE (GEB_ID);
-
-alter table SPEICHERLEVEL
-   add constraint FK_SPEICHER_GEHORT_ZU_BURG foreign key (BU_POSITION)
-      references BURG (BU_POSITION);
 
 alter table USER_TO_ADMIN
    add constraint FK_USER_TO__IST_TEIL_ADMINIST foreign key (AD_ID)
