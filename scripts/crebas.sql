@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 19c                           */
-/* Created on:     12.01.2022 12:39:30                          */
+/* Created on:     12.01.2022 14:00:09                          */
 /*==============================================================*/
 
 
@@ -101,10 +101,10 @@ alter table FORUM
    drop constraint FK_FORUM_ADMIN_TO__ADMINIST;
 
 alter table GEBOT
-   drop constraint FK_GEBOT_ACCOUNT_T_ACCOUNT;
+   drop constraint FK_GEBOT_REFERENCE_ACCOUNT;
 
 alter table GEBOT
-   drop constraint FK_GEBOT_AUKTION_T_AUKTION;
+   drop constraint FK_GEBOT_REFERENCE_AUKTION;
 
 alter table GEB_TO_GEBEIG
    drop constraint FK_GEB_TO_G_GEHORT2_GEBAEUDE;
@@ -247,10 +247,6 @@ drop table FORUM cascade constraints;
 drop table GEBAEUDE cascade constraints;
 
 drop table GEBAEUDE_EIGENSCHAFT cascade constraints;
-
-drop index AUKTION_TO_GEBOT_FK;
-
-drop index ACCOUNT_TO_GEBOT_FK;
 
 drop table GEBOT cascade constraints;
 
@@ -484,12 +480,12 @@ create index HAT_FK on ATTRIBUT_TO_ITEM (
 /* Table: AUKTION                                               */
 /*==============================================================*/
 create table AUKTION (
+   AUK_ID               INTEGER               not null,
    ACC_ID               INTEGER               not null,
    ITEM_ID              INTEGER               not null,
-   AUK_ID               INTEGER               not null,
    AUK_START_DATUM      DATE                  not null,
    AUK_END_DATUM        DATE                  not null,
-   constraint PK_AUKTION primary key (ACC_ID, ITEM_ID, AUK_ID)
+   constraint PK_AUKTION primary key (AUK_ID)
 );
 
 /*==============================================================*/
@@ -774,28 +770,10 @@ create table GEBAEUDE_EIGENSCHAFT (
 /*==============================================================*/
 create table GEBOT (
    GEBOT_ID             INTEGER               not null,
-   AUK_ACC_ID           INTEGER,
-   ITEM_ID              INTEGER,
-   AUK_ID               INTEGER,
    ACC_ID               INTEGER,
+   AUK_ID               INTEGER,
    GEBOT_WERT           INTEGER               not null,
    constraint PK_GEBOT primary key (GEBOT_ID)
-);
-
-/*==============================================================*/
-/* Index: ACCOUNT_TO_GEBOT_FK                                   */
-/*==============================================================*/
-create index ACCOUNT_TO_GEBOT_FK on GEBOT (
-   ACC_ID ASC
-);
-
-/*==============================================================*/
-/* Index: AUKTION_TO_GEBOT_FK                                   */
-/*==============================================================*/
-create index AUKTION_TO_GEBOT_FK on GEBOT (
-   AUK_ACC_ID ASC,
-   ITEM_ID ASC,
-   AUK_ID ASC
 );
 
 /*==============================================================*/
@@ -1114,12 +1092,12 @@ alter table FORUM
       references ADMINISTRATION (AD_ID);
 
 alter table GEBOT
-   add constraint FK_GEBOT_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
+   add constraint FK_GEBOT_REFERENCE_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID);
 
 alter table GEBOT
-   add constraint FK_GEBOT_AUKTION_T_AUKTION foreign key (AUK_ACC_ID, ITEM_ID, AUK_ID)
-      references AUKTION (ACC_ID, ITEM_ID, AUK_ID);
+   add constraint FK_GEBOT_REFERENCE_AUKTION foreign key (AUK_ID)
+      references AUKTION (AUK_ID);
 
 alter table GEB_TO_GEBEIG
    add constraint FK_GEB_TO_G_GEHORT2_GEBAEUDE foreign key (GEB_ID)
