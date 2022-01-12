@@ -3,45 +3,45 @@ INSERT INTO WELT(WELT_ID, WELT_FELD_X, WELT_FELD_Y, WELT_NAME)
 VALUES (1,1,1,'welt 1');
 
 /* ACCOUNT */
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (1,1,'tnorridge0','jHTm8SIcdOV','elongstaffe0@vkontakte.ru',TO_DATE('2021-07-08 16:34:26', 'yyyy/mm/dd hh24:mi:ss'),0,'9f71a834ab6b19e5f95958604dfa8eb2e0547f64');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (2,1,'ppolle1','BRZJrQwntT','ofew1@wikispaces.com',TO_DATE('2021-01-18 17:20:31', 'yyyy/mm/dd hh24:mi:ss'),0,'68db480f187a19bfc6c47c9c19082af9bade668e');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (3,1,'rdearness2','QMkF9Sv2Zvy','abrellin2@google.com',TO_DATE('2021-10-30 05:57:32', 'yyyy/mm/dd hh24:mi:ss'),1,'578f3c74394bfa343e7075f7f5f8b13eccb66142');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (4,1,'zpridham3','IktWLXp','ffrisby3@oracle.com',TO_DATE('2021-04-25 22:57:58', 'yyyy/mm/dd hh24:mi:ss'),0,'2de8e578c6a674b61faa3872b02621dfdf552a30');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (5,1,'mstrange4','azju63','spenniell4@liveinternet.ru',TO_DATE('2021-02-13 05:59:24', 'yyyy/mm/dd hh24:mi:ss'),1,'885a4c71754ee4eace35e963194400f2c17a0a91');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (6,1,'bkeuntje5','vvb38Ss5','ddemogeot5@jalbum.net',TO_DATE('2021-05-19 20:01:22', 'yyyy/mm/dd hh24:mi:ss'),0,'d447f2709ccf7af0956cfef42543004af35503cd');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (7,1,'jbryers6','5JGFOWQQzgn','dmoughtin6@naver.com',TO_DATE('2020-12-24 18:04:03', 'yyyy/mm/dd hh24:mi:ss'),0,'703b9d5347fa4ac6b4a9976a0cadb3b9706398f9');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (8,1,'bmusto7','R0CTvyvvRI','dhawtin7@behance.net',TO_DATE('2021-01-28 17:07:55', 'yyyy/mm/dd hh24:mi:ss'),1,'a1dbe0d7d0c7ad061bf5e17d80013f2d13913b1b');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (19,1,'mhakonsson8','dBIwh3','jchristophersen8@fc2.com',TO_DATE('2021-01-02 03:00:28', 'yyyy/mm/dd hh24:mi:ss'),0,'811312f6c93314334063d79761ce5385ff85cc41');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (10,1,'adytham9','bXCU8Sxjfin','trhelton9@aboutads.info',TO_DATE('2021-10-10 02:52:35', 'yyyy/mm/dd hh24:mi:ss'),0,'76ea580bba382edb247da39bdf82d2c50ae8254d');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (11,1,'llezemorea','8vKZcdaI','mhickina@exblog.jp',TO_DATE('2021-08-27 07:03:10', 'yyyy/mm/dd hh24:mi:ss'),1,'8a1a140183826b36dde915b02ab847adf4a708e6');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (12,1,'nkirkbrideb','3CBy0reCOoXV','ehulkeb@addthis.com',TO_DATE('2021-08-21 00:45:51', 'yyyy/mm/dd hh24:mi:ss'),1,'ec6fb013898f6229a7a38ad3903e5af36996a3aa');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (13,1,'sgrimwadc','Eg20sJOxbs','mcobelloc@amazonaws.com',TO_DATE('2021-07-13 14:17:06', 'yyyy/mm/dd hh24:mi:ss'),1,'00eeb82ea0c7462d1bf06ee39efb531459c65cda');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (14,1,'lthreshd','JVDJIVthCo9f','ebarberad@adobe.com',TO_DATE('2021-09-11 11:04:23', 'yyyy/mm/dd hh24:mi:ss'),1,'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (15,1,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_DATE('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (16,1,'areddyf','N58ME93g6BI','cshottonf@amazon.de',TO_DATE('2021-03-10 11:52:46', 'yyyy/mm/dd hh24:mi:ss'),0,'a16227ef49f64c0316436734b10fbd95847930ff');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (17,1,'ipunchg','EZhi5f7VDaq','ebracknallg@technorati.com',TO_DATE('2021-01-18 11:45:41', 'yyyy/mm/dd hh24:mi:ss'),1,'ba7715050c110dd26276f1d723cf39f5562af20e');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (18,1,'kcoulsenh','ZYco1Ys7S','zclaisseh@blog.com',TO_DATE('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (9,1,'cjaimezi','o6ZZ0D','sbartkei@cnn.com',TO_DATE('2021-01-07 12:07:26', 'yyyy/mm/dd hh24:mi:ss'),1,'75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzer_login,acc_premium,acc_payment_token)
+INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
 VALUES (20,1,'ifullej','CpcKLE','kallcottj@booking.com',TO_DATE('2021-05-01 16:02:23', 'yyyy/mm/dd hh24:mi:ss'),1,'126d1df38b226e39027ce0f2b9b5182bfcb3af10');
 
 /* ITEM */
