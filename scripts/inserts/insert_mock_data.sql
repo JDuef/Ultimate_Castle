@@ -1,48 +1,44 @@
-/* WELT PLACEHOLDER */
-INSERT INTO WELT(WELT_ID, WELT_FELD_X, WELT_FELD_Y, WELT_NAME)
-VALUES (1,1,1,'welt 1');
-
 /* ACCOUNT */
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (1,1,'tnorridge0','jHTm8SIcdOV','elongstaffe0@vkontakte.ru',TO_DATE('2021-07-08 16:34:26', 'yyyy/mm/dd hh24:mi:ss'),0,'9f71a834ab6b19e5f95958604dfa8eb2e0547f64');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (2,1,'ppolle1','BRZJrQwntT','ofew1@wikispaces.com',TO_DATE('2021-01-18 17:20:31', 'yyyy/mm/dd hh24:mi:ss'),0,'68db480f187a19bfc6c47c9c19082af9bade668e');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (3,1,'rdearness2','QMkF9Sv2Zvy','abrellin2@google.com',TO_DATE('2021-10-30 05:57:32', 'yyyy/mm/dd hh24:mi:ss'),1,'578f3c74394bfa343e7075f7f5f8b13eccb66142');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (4,1,'zpridham3','IktWLXp','ffrisby3@oracle.com',TO_DATE('2021-04-25 22:57:58', 'yyyy/mm/dd hh24:mi:ss'),0,'2de8e578c6a674b61faa3872b02621dfdf552a30');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (5,1,'mstrange4','azju63','spenniell4@liveinternet.ru',TO_DATE('2021-02-13 05:59:24', 'yyyy/mm/dd hh24:mi:ss'),1,'885a4c71754ee4eace35e963194400f2c17a0a91');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (6,1,'bkeuntje5','vvb38Ss5','ddemogeot5@jalbum.net',TO_DATE('2021-05-19 20:01:22', 'yyyy/mm/dd hh24:mi:ss'),0,'d447f2709ccf7af0956cfef42543004af35503cd');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (7,1,'jbryers6','5JGFOWQQzgn','dmoughtin6@naver.com',TO_DATE('2020-12-24 18:04:03', 'yyyy/mm/dd hh24:mi:ss'),0,'703b9d5347fa4ac6b4a9976a0cadb3b9706398f9');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (8,1,'bmusto7','R0CTvyvvRI','dhawtin7@behance.net',TO_DATE('2021-01-28 17:07:55', 'yyyy/mm/dd hh24:mi:ss'),1,'a1dbe0d7d0c7ad061bf5e17d80013f2d13913b1b');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (19,1,'mhakonsson8','dBIwh3','jchristophersen8@fc2.com',TO_DATE('2021-01-02 03:00:28', 'yyyy/mm/dd hh24:mi:ss'),0,'811312f6c93314334063d79761ce5385ff85cc41');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (10,1,'adytham9','bXCU8Sxjfin','trhelton9@aboutads.info',TO_DATE('2021-10-10 02:52:35', 'yyyy/mm/dd hh24:mi:ss'),0,'76ea580bba382edb247da39bdf82d2c50ae8254d');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (11,1,'llezemorea','8vKZcdaI','mhickina@exblog.jp',TO_DATE('2021-08-27 07:03:10', 'yyyy/mm/dd hh24:mi:ss'),1,'8a1a140183826b36dde915b02ab847adf4a708e6');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (12,1,'nkirkbrideb','3CBy0reCOoXV','ehulkeb@addthis.com',TO_DATE('2021-08-21 00:45:51', 'yyyy/mm/dd hh24:mi:ss'),1,'ec6fb013898f6229a7a38ad3903e5af36996a3aa');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (13,1,'sgrimwadc','Eg20sJOxbs','mcobelloc@amazonaws.com',TO_DATE('2021-07-13 14:17:06', 'yyyy/mm/dd hh24:mi:ss'),1,'00eeb82ea0c7462d1bf06ee39efb531459c65cda');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (14,1,'lthreshd','JVDJIVthCo9f','ebarberad@adobe.com',TO_DATE('2021-09-11 11:04:23', 'yyyy/mm/dd hh24:mi:ss'),1,'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (15,1,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_DATE('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (16,1,'areddyf','N58ME93g6BI','cshottonf@amazon.de',TO_DATE('2021-03-10 11:52:46', 'yyyy/mm/dd hh24:mi:ss'),0,'a16227ef49f64c0316436734b10fbd95847930ff');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (17,1,'ipunchg','EZhi5f7VDaq','ebracknallg@technorati.com',TO_DATE('2021-01-18 11:45:41', 'yyyy/mm/dd hh24:mi:ss'),1,'ba7715050c110dd26276f1d723cf39f5562af20e');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (18,1,'kcoulsenh','ZYco1Ys7S','zclaisseh@blog.com',TO_DATE('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (9,1,'cjaimezi','o6ZZ0D','sbartkei@cnn.com',TO_DATE('2021-01-07 12:07:26', 'yyyy/mm/dd hh24:mi:ss'),1,'75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
-INSERT INTO ACCOUNT(acc_id,welt_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (20,1,'ifullej','CpcKLE','kallcottj@booking.com',TO_DATE('2021-05-01 16:02:23', 'yyyy/mm/dd hh24:mi:ss'),1,'126d1df38b226e39027ce0f2b9b5182bfcb3af10');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (1,'tnorridge0','jHTm8SIcdOV','elongstaffe0@vkontakte.ru',TO_TIMESTAMP('2021-07-08 16:34:26', 'yyyy/mm/dd hh24:mi:ss'),0,'9f71a834ab6b19e5f95958604dfa8eb2e0547f64');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (2,'ppolle1','BRZJrQwntT','ofew1@wikispaces.com',TO_TIMESTAMP('2021-01-18 17:20:31', 'yyyy/mm/dd hh24:mi:ss'),0,'68db480f187a19bfc6c47c9c19082af9bade668e');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (3,1,'rdearness2','QMkF9Sv2Zvy','abrellin2@google.com',TO_TIMESTAMP('2021-10-30 05:57:32', 'yyyy/mm/dd hh24:mi:ss'),1,'578f3c74394bfa343e7075f7f5f8b13eccb66142');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (4,'zpridham3','IktWLXp','ffrisby3@oracle.com',TO_TIMESTAMP('2021-04-25 22:57:58', 'yyyy/mm/dd hh24:mi:ss'),0,'2de8e578c6a674b61faa3872b02621dfdf552a30');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (5,'mstrange4','azju63','spenniell4@liveinternet.ru',TO_TIMESTAMP('2021-02-13 05:59:24', 'yyyy/mm/dd hh24:mi:ss'),1,'885a4c71754ee4eace35e963194400f2c17a0a91');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (6,'bkeuntje5','vvb38Ss5','ddemogeot5@jalbum.net',TO_TIMESTAMP('2021-05-19 20:01:22', 'yyyy/mm/dd hh24:mi:ss'),0,'d447f2709ccf7af0956cfef42543004af35503cd');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (7,'jbryers6','5JGFOWQQzgn','dmoughtin6@naver.com',TO_TIMESTAMP('2020-12-24 18:04:03', 'yyyy/mm/dd hh24:mi:ss'),0,'703b9d5347fa4ac6b4a9976a0cadb3b9706398f9');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (8,'bmusto7','R0CTvyvvRI','dhawtin7@behance.net',TO_TIMESTAMP('2021-01-28 17:07:55', 'yyyy/mm/dd hh24:mi:ss'),1,'a1dbe0d7d0c7ad061bf5e17d80013f2d13913b1b');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (19,'mhakonsson8','dBIwh3','jchristophersen8@fc2.com',TO_TIMESTAMP('2021-01-02 03:00:28', 'yyyy/mm/dd hh24:mi:ss'),0,'811312f6c93314334063d79761ce5385ff85cc41');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (10,'adytham9','bXCU8Sxjfin','trhelton9@aboutads.info',TO_TIMESTAMP('2021-10-10 02:52:35', 'yyyy/mm/dd hh24:mi:ss'),0,'76ea580bba382edb247da39bdf82d2c50ae8254d');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (11,'llezemorea','8vKZcdaI','mhickina@exblog.jp',TO_TIMESTAMP('2021-08-27 07:03:10', 'yyyy/mm/dd hh24:mi:ss'),1,'8a1a140183826b36dde915b02ab847adf4a708e6');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (12,'nkirkbrideb','3CBy0reCOoXV','ehulkeb@addthis.com',TO_TIMESTAMP('2021-08-21 00:45:51', 'yyyy/mm/dd hh24:mi:ss'),1,'ec6fb013898f6229a7a38ad3903e5af36996a3aa');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (13,'sgrimwadc','Eg20sJOxbs','mcobelloc@amazonaws.com',TO_TIMESTAMP('2021-07-13 14:17:06', 'yyyy/mm/dd hh24:mi:ss'),1,'00eeb82ea0c7462d1bf06ee39efb531459c65cda');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (14,'lthreshd','JVDJIVthCo9f','ebarberad@adobe.com',TO_TIMESTAMP('2021-09-11 11:04:23', 'yyyy/mm/dd hh24:mi:ss'),1,'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (15,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_TIMESTAMP('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (16,'areddyf','N58ME93g6BI','cshottonf@amazon.de',TO_TIMESTAMP('2021-03-10 11:52:46', 'yyyy/mm/dd hh24:mi:ss'),0,'a16227ef49f64c0316436734b10fbd95847930ff');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (17,'ipunchg','EZhi5f7VDaq','ebracknallg@technorati.com',TO_TIMESTAMP('2021-01-18 11:45:41', 'yyyy/mm/dd hh24:mi:ss'),1,'ba7715050c110dd26276f1d723cf39f5562af20e');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (18,'kcoulsenh','ZYco1Ys7S','zclaisseh@blog.com',TO_TIMESTAMP('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (9,'cjaimezi','o6ZZ0D','sbartkei@cnn.com',TO_TIMESTAMP('2021-01-07 12:07:26', 'yyyy/mm/dd hh24:mi:ss'),1,'75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
+INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
+VALUES (20,'ifullej','CpcKLE','kallcottj@booking.com',TO_TIMESTAMP('2021-05-01 16:02:23', 'yyyy/mm/dd hh24:mi:ss'),1,'126d1df38b226e39027ce0f2b9b5182bfcb3af10');
 
 /* ITEM */
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)
@@ -108,15 +104,15 @@ VALUES (18,15,6);
 
 /* AUKTION */
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (1,1,11,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (1,1,11,TO_TIMESTAMP('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_TIMESTAMP('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (2,3,1,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (2,3,1,TO_TIMESTAMP('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_TIMESTAMP('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (3,1,12,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (3,1,12,TO_TIMESTAMP('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_TIMESTAMP('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (4,8,5,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (4,8,5,TO_TIMESTAMP('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_TIMESTAMP('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO AUKTION(auk_id,acc_id,item_id,auk_start_datum,auk_end_datum)
-VALUES (5,18,15,TO_DATE('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_DATE('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
+VALUES (5,18,15,TO_TIMESTAMP('2021-08-03 05:33:32', 'yyyy/mm/dd hh24:mi:ss'),TO_TIMESTAMP('2020-12-24 19:49:45', 'yyyy/mm/dd hh24:mi:ss'));
 
 /* GEBOT */
 INSERT INTO GEBOT(gebot_id,acc_id,auk_id,gebot_wert)
@@ -222,45 +218,45 @@ VALUES (50,2,5,19);
 
 /* BESTELLUNG */
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (1,20,TO_DATE('2021-09-12 01:31:57', 'yyyy/mm/dd hh24:mi:ss'),26);
+VALUES (1,20,TO_TIMESTAMP('2021-09-12 01:31:57', 'yyyy/mm/dd hh24:mi:ss'),26);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (2,19,TO_DATE('2021-04-23 17:17:06', 'yyyy/mm/dd hh24:mi:ss'),9);
+VALUES (2,19,TO_TIMESTAMP('2021-04-23 17:17:06', 'yyyy/mm/dd hh24:mi:ss'),9);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (3,18,TO_DATE('2021-04-03 21:08:56', 'yyyy/mm/dd hh24:mi:ss'),39);
+VALUES (3,18,TO_TIMESTAMP('2021-04-03 21:08:56', 'yyyy/mm/dd hh24:mi:ss'),39);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (4,17,TO_DATE('2021-01-19 15:29:09', 'yyyy/mm/dd hh24:mi:ss'),35);
+VALUES (4,17,TO_TIMESTAMP('2021-01-19 15:29:09', 'yyyy/mm/dd hh24:mi:ss'),35);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (5,16,TO_DATE('2021-06-14 18:24:51', 'yyyy/mm/dd hh24:mi:ss'),15);
+VALUES (5,16,TO_TIMESTAMP('2021-06-14 18:24:51', 'yyyy/mm/dd hh24:mi:ss'),15);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (6,15,TO_DATE('2021-01-11 17:18:01', 'yyyy/mm/dd hh24:mi:ss'),32);
+VALUES (6,15,TO_TIMESTAMP('2021-01-11 17:18:01', 'yyyy/mm/dd hh24:mi:ss'),32);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (7,13,TO_DATE('2021-11-27 22:38:22', 'yyyy/mm/dd hh24:mi:ss'),37);
+VALUES (7,13,TO_TIMESTAMP('2021-11-27 22:38:22', 'yyyy/mm/dd hh24:mi:ss'),37);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (8,13,TO_DATE('2021-01-21 16:18:42', 'yyyy/mm/dd hh24:mi:ss'),42);
+VALUES (8,13,TO_TIMESTAMP('2021-01-21 16:18:42', 'yyyy/mm/dd hh24:mi:ss'),42);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (9,12,TO_DATE('2021-10-17 01:18:00', 'yyyy/mm/dd hh24:mi:ss'),21);
+VALUES (9,12,TO_TIMESTAMP('2021-10-17 01:18:00', 'yyyy/mm/dd hh24:mi:ss'),21);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (10,11,TO_DATE('2021-01-10 05:41:45', 'yyyy/mm/dd hh24:mi:ss'),2);
+VALUES (10,11,TO_TIMESTAMP('2021-01-10 05:41:45', 'yyyy/mm/dd hh24:mi:ss'),2);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (11,10,TO_DATE('2020-12-23 10:11:03', 'yyyy/mm/dd hh24:mi:ss'),29);
+VALUES (11,10,TO_TIMESTAMP('2020-12-23 10:11:03', 'yyyy/mm/dd hh24:mi:ss'),29);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (12,9,TO_DATE('2021-02-22 03:59:38', 'yyyy/mm/dd hh24:mi:ss'),13);
+VALUES (12,9,TO_TIMESTAMP('2021-02-22 03:59:38', 'yyyy/mm/dd hh24:mi:ss'),13);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (13,8,TO_DATE('2021-10-27 02:23:17', 'yyyy/mm/dd hh24:mi:ss'),31);
+VALUES (13,8,TO_TIMESTAMP('2021-10-27 02:23:17', 'yyyy/mm/dd hh24:mi:ss'),31);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (14,7,TO_DATE('2021-09-08 17:15:30', 'yyyy/mm/dd hh24:mi:ss'),49);
+VALUES (14,7,TO_TIMESTAMP('2021-09-08 17:15:30', 'yyyy/mm/dd hh24:mi:ss'),49);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (15,6,TO_DATE('2021-06-30 19:33:21', 'yyyy/mm/dd hh24:mi:ss'),23);
+VALUES (15,6,TO_TIMESTAMP('2021-06-30 19:33:21', 'yyyy/mm/dd hh24:mi:ss'),23);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (16,5,TO_DATE('2021-06-14 10:20:45', 'yyyy/mm/dd hh24:mi:ss'),49);
+VALUES (16,5,TO_TIMESTAMP('2021-06-14 10:20:45', 'yyyy/mm/dd hh24:mi:ss'),49);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (17,4,TO_DATE('2021-01-13 19:15:37', 'yyyy/mm/dd hh24:mi:ss'),17);
+VALUES (17,4,TO_TIMESTAMP('2021-01-13 19:15:37', 'yyyy/mm/dd hh24:mi:ss'),17);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (18,3,TO_DATE('2021-03-21 07:52:36', 'yyyy/mm/dd hh24:mi:ss'),4);
+VALUES (18,3,TO_TIMESTAMP('2021-03-21 07:52:36', 'yyyy/mm/dd hh24:mi:ss'),4);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (19,2,TO_DATE('2021-04-01 16:19:45', 'yyyy/mm/dd hh24:mi:ss'),25);
+VALUES (19,2,TO_TIMESTAMP('2021-04-01 16:19:45', 'yyyy/mm/dd hh24:mi:ss'),25);
 INSERT INTO BESTELLUNG(best_id,acc_id,best_datum,best_wert)
-VALUES (20,1,TO_DATE('2021-09-14 18:53:54', 'yyyy/mm/dd hh24:mi:ss'),8);
+VALUES (20,1,TO_TIMESTAMP('2021-09-14 18:53:54', 'yyyy/mm/dd hh24:mi:ss'),8);
 
 /* BESTELLUNG_TO_ITEM */
 INSERT INTO BESTELLUNG_TO_ITEM(best_id,item_id,anzahl)
