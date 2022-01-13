@@ -32,13 +32,13 @@ VALUES (6, 1, 1, TO_DATE('2022-01-12 13:34:26', 'yyyy/mm/dd hh24:mi:ss'), TO_DAT
 CREATE VIEW Laufende_Auktionen AS
 SELECT *
 FROM AUKTION
-WHERE sysdate <= auk_end_datum;
+WHERE CURRENT_TIMESTAMP <= auk_end_datum;
 
 /* alle abgelaufenden auktionen zurückgeben */
 CREATE VIEW Abgelaufende_Auktionen AS
 SELECT *
 FROM AUKTION
-WHERE sysdate >= auk_end_datum;
+WHERE CURRENT_TIMESTAMP >= auk_end_datum;
 
 /* alle auktionen zurückgeben welche von einem bestimmten account erstellt wurden */
 SELECT *
@@ -82,7 +82,7 @@ VALUES ([id der Bestellung], [id eines Items], [Anzahl des Items]);
 /* WENN MEHRERE ITEMS DANN LETZTES INSERT WIEDERHOLEN*/
 
 INSERT INTO BESTELLUNG(best_id, acc_id, best_datum, best_wert)
-VALUES (21,1, sysdate, 42);
+VALUES (21,1, CURRENT_TIMESTAMP, 42);
 
 INSERT INTO bestellung_to_item(best_id, item_id, anzahl)
 VALUES (21, 1, 3);
