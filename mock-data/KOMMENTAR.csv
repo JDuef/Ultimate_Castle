@@ -1,0 +1,78 @@
+ko_id,ei_id,acc_id,ko_inhalt,ko_date_of_creation
+1,1,5,It is a programming language.,2021-03-04 03:38:42
+2,1,8,"Okay, but how does it relate to regular expressions (and by the way: what are regular expressions?) I don’t get it",2021-03-04 03:39:42
+3,1,12,Did you hear about GOOGLE? You can search stuff with it. Instead of asking stupid questions.,2021-03-04 03:40:31
+4,1,2,"This forum is for asking questions, which is precisely what the poster did, so please be nice.",2021-03-04 03:41:32
+5,1,5,"A regular expression is a kind of pattern, which you can use to search large texts without doing all the manual work. Perl is often regarded as being a very efficient programming language, if it comes to evaluating regular expressions.",2021-03-04 03:43:32
+6,1,8,"Ah, okay, that sound really usefull, I should try to learn something about that. Thank you so much.",2021-03-04 03:44:32
+7,1,5,"Believe me, it is :)",2021-03-04 03:45:32
+8,2,5,I like 208. The framing of knowing regular expressions beeing like a superpower is really funny to me.,2021-04-28 03:38:42
+9,2,14,I think 378 is also really funny. The absurdity of it mimics the holy wars beeing fought over what being a „real“ programmer means really perfectly.,2021-04-28 03:42:42
+10,2,12,"Well everybody knows, that emacs is obviously the superior text editor…",2021-04-28 03:43:42
+11,2,5,"Oh, please don’t get me started..",2021-04-28 04:21:42
+12,2,5,Do you honestly like the keybindings of emacs? What is wrong with you?,2021-04-28 04:22:42
+13,2,5,Are you some kind of masochist?,2021-04-28 04:23:00
+14,2,14,Case and point.,2021-04-28 04:24:42
+15,2,2,"Okay, everybody calm down now.",2021-04-28 04:26:42
+16,2,16,Was pretty funny though..,2021-04-28 04:28:42
+17,3,12,"Yeah, obviously.",2021-03-25 03:14:05
+18,3,14,Care to elaborate?,2021-03-25 03:15:05
+19,3,12,"Cueball seems way to have way too much of a personality, to just be the generic everyman.",2021-03-25 03:16:05
+20,3,14,"Hmm, yeah, he really seems to have quite a personality, but it changes too often to really refelct the values of randall.",2021-03-25 03:17:05
+21,3,14,"I think, generally it leans into randall personal values but changes, according to the narrative needs of the comicstrip.",2021-03-25 03:18:05
+22,3,12,Not convinced.,2021-03-25 03:19:05
+23,3,14,"Okay, you don’t need to be, but this is a discussion forum, it is for discussion.",2021-03-25 04:13:05
+24,3,5,"Jeez, here we go again…",2021-03-25 04:14:05
+25,3,12,You shut up and play your little game of vim.,2021-03-25 04:16:05
+26,6,10,"Sounds good, when shall we attack?",2021-12-14 17:02:24
+27,6,13,"Well, I can do next tuesday",2021-12-14 17:10:24
+28,6,17,Next tuesday sounds good.,2021-12-14 17:18:24
+29,6,19,Yeah for me too.,2021-12-14 17:23:24
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,xkcd,,Technik-enthusiasten,
+,2,ADMIN,1,ADMIN
+,,,6,
+,,,18,
+,,,,
+,,,,
+,,,,
+,5,,,
+,,,,
+,8,,,
+,9,,,
+,,,,
+,12,,,
+,,,,
+,14,,,
+,16,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,One and onlz,,,
+,3,ADMIN,,
+,7,ADMIN,,
+,10,,,
+,13,,,
+,17,,,
+,19,,,
+,20,,,
