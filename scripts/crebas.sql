@@ -960,7 +960,8 @@ create table WELT (
 
 alter table ACCOUNT
    add constraint FK_ACCOUNT_USER_TO_A_ALLIANZ foreign key (AL_ID)
-      references ALLIANZ (AL_ID);
+      references ALLIANZ (AL_ID)
+      ON DELETE SET NULL;
 
 alter table ACCOUNT_TO_ITEM
    add constraint FK_ACCOUNT__BESITZT2_ITEM foreign key (ITEM_ID)
@@ -986,19 +987,23 @@ alter table ALLIANZ
 
 alter table ANGRIFF
    add constraint FK_ANGRIFF_ANGREIFER_BURG foreign key (BUR_BU_ID)
-      references BURG (BU_ID);
+      references BURG (BU_ID)
+      ON DELETE CASCADE;
 
 alter table ANGRIFF
    add constraint FK_ANGRIFF_BEWEGUNG__EINHEIT_ foreign key (GRUPPE_ID)
-      references EINHEIT_GRUPPE (GRUPPE_ID);
+      references EINHEIT_GRUPPE (GRUPPE_ID)
+      ON DELETE CASCADE;
 
 alter table ANGRIFF
    add constraint FK_ANGRIFF_VERTEIDIG_BURG foreign key (BU_ID)
-      references BURG (BU_ID);
+      references BURG (BU_ID)
+      ON DELETE CASCADE;
 
 alter table ATTRIBUTE
    add constraint FK_ATTRIBUT_ATTRIB_EI_EINHEIT_ foreign key (EINHEIT_ATTRIBU_ID)
-      references EINHEIT_ATTRIBUT (EINHEIT_ATTRIBU_ID);
+      references EINHEIT_ATTRIBUT (EINHEIT_ATTRIBU_ID)
+      ON DELETE SET NULL;
 
 alter table ATTRIBUT_TO_ITEM
    add constraint FK_ATTRIBUT_AUF_ITEM foreign key (ITEM_ID)
@@ -1037,55 +1042,68 @@ alter table BESTELLUNG_TO_ITEM
 
 alter table BURG
    add constraint FK_BURG_KONIGREIC_KOENIGRE foreign key (KOE_ID)
-      references KOENIGREICH (KOE_ID);
+      references KOENIGREICH (KOE_ID)
+      ON DELETE CASCADE;
 
 alter table BURG_TO_GEBAEUDE
    add constraint FK_BURG_TO__BESITZT_GEBAEUDE foreign key (GEB_ID)
-      references GEBAEUDE (GEB_ID);
+      references GEBAEUDE (GEB_ID)
+      ON DELETE CASCADE;
 
 alter table BURG_TO_GEBAEUDE
    add constraint FK_BURG_TO__GEHORT_ZU_BURG foreign key (BU_ID)
-      references BURG (BU_ID);
+      references BURG (BU_ID)
+      ON DELETE CASCADE;
 
 alter table CHATNACHRICHT
    add constraint FK_CHATNACH_NACHRICHT_ACCOUNT foreign key (ACC_ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table CHATNACHRICHT
    add constraint FK_CHATNACH_USER_TO_N_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table CHATROOM
    add constraint FK_CHATROOM_ALLIANZ_T_ALLIANZ foreign key (AL_ID)
-      references ALLIANZ (AL_ID);
+      references ALLIANZ (AL_ID)
+      ON DELETE CASCADE;
 
 alter table CHATROOM_NACHRICHT
    add constraint FK_CHATROOM_CR_NACHRI_CHATROOM foreign key (CR_ID)
-      references CHATROOM (CR_ID);
+      references CHATROOM (CR_ID)
+      ON DELETE CASCADE;
 
 alter table CHATROOM_NACHRICHT
    add constraint FK_CHATROOM_USER_TO_C_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table EINHEIT
    add constraint FK_EINHEIT_GEB_VOR_E_GEBAEUDE foreign key (GEB_ID)
-      references GEBAEUDE (GEB_ID);
+      references GEBAEUDE (GEB_ID)
+      ON DELETE CASCADE;
 
 alter table EINHEIT
    add constraint FK_EINHEIT_GEHOERT_BURG foreign key (BU_ID)
-      references BURG (BU_ID);
+      references BURG (BU_ID)
+      ON DELETE SET NULL;
 
 alter table EINHEIT_ATTRIBUT
    add constraint FK_EINHEIT__EINHEIT_A_EINHEIT foreign key (EINHEIT_ID)
-      references EINHEIT (EINHEIT_ID);
+      references EINHEIT (EINHEIT_ID)
+      ON DELETE CASCADE;
 
 alter table EINTRAG
    add constraint FK_EINTRAG_FORUM_TO__FORUM foreign key (FO_ID)
-      references FORUM (FO_ID);
+      references FORUM (FO_ID)
+      ON DELETE CASCADE;
 
 alter table EINTRAG
    add constraint FK_EINTRAG_USER_TO_E_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table FORUM
    add constraint FK_FORUM_ADMIN_TO__ADMINIST foreign key (AD_ID)
@@ -1103,44 +1121,55 @@ alter table GEBOT
 
 alter table GEB_TO_GEBEIG
    add constraint FK_GEB_TO_G_GEHORT2_GEBAEUDE foreign key (GEB_ID)
-      references GEBAEUDE (GEB_ID);
+      references GEBAEUDE (GEB_ID)
+      ON DELETE CASCADE;
 
 alter table GEB_TO_GEBEIG
    add constraint FK_GEB_TO_G_HAT2_GEBAEUDE foreign key (GE_ID)
-      references GEBAEUDE_EIGENSCHAFT (GE_ID);
+      references GEBAEUDE_EIGENSCHAFT (GE_ID)
+      ON DELETE CASCADE;
 
 alter table GRUPPE
    add constraint FK_GRUPPE_BEINHALTE_EINHEIT foreign key (EINHEIT_ID)
-      references EINHEIT (EINHEIT_ID);
+      references EINHEIT (EINHEIT_ID)
+      ON DELETE CASCADE;
 
 alter table GRUPPE
    add constraint FK_GRUPPE_GEHORT_EINHEIT_ foreign key (GRUPPE_ID)
-      references EINHEIT_GRUPPE (GRUPPE_ID);
+      references EINHEIT_GRUPPE (GRUPPE_ID)
+      ON DELETE CASCADE;
 
 alter table KOENIGREICH
    add constraint FK_KOENIGRE_KOENIGREI_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table KOENIGREICH
    add constraint FK_KOENIGRE_ZUGEHOERI_WELT foreign key (WELT_ID)
-      references WELT (WELT_ID);
+      references WELT (WELT_ID)
+      ON DELETE CASCADE;
 
 alter table KOMMENTAR
    add constraint FK_KOMMENTA_EINTRAG_T_EINTRAG foreign key (EI_ID)
-      references EINTRAG (EI_ID);
+      references EINTRAG (EI_ID)
+      ON DELETE CASCADE;
 
 alter table KOMMENTAR
    add constraint FK_KOMMENTA_USER_TO_K_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table KRIEGSBEUTE
    add constraint FK_KRIEGSBE_KRIEGSBEU_ANGRIFF foreign key (ANGRIFF_ID)
-      references ANGRIFF (ANGRIFF_ID);
+      references ANGRIFF (ANGRIFF_ID)
+      ON DELETE CASCADE;
 
 alter table USER_TO_ADMIN
    add constraint FK_USER_TO__IST_TEIL_ADMINIST foreign key (AD_ID)
-      references ADMINISTRATION (AD_ID);
+      references ADMINISTRATION (AD_ID)
+      ON DELETE CASCADE;
 
 alter table USER_TO_ADMIN
    add constraint FK_USER_TO__WIRD_GEFU_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
