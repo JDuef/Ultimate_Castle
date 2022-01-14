@@ -1,44 +1,265 @@
+/*ADMINISTRATION*/
+INSERT INTO ADMINISTRATION (AD_ID, AL_ID) 
+VALUES (1, NULL);
+INSERT INTO ADMINISTRATION (AD_ID, AL_ID) 
+VALUES (2, NULL);
+INSERT INTO ADMINISTRATION (AD_ID, AL_ID) 
+VALUES (3, NULL);
+INSERT INTO ADMINISTRATION (AD_ID, AL_ID) 
+VALUES (4, NULL);
+
+/*ALLIANZ*/
+INSERT INTO ALLIANZ (AL_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION, AD_ID) 
+VALUES (1, 'Technologie-Enthusiasten', 'Wir mögen Technik.', to_timestamp('2021-01-25 03:13:05', 'YYYY-MM-DD HH24:MI:SS'), 4);
+INSERT INTO ALLIANZ (AL_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION, AD_ID) 
+VALUES (2, 'The one and only', 'Die einzige Gilde, die diese Welt braucht', to_timestamp('2020-12-24 00:32:22', 'YYYY-MM-DD HH24:MI:SS'), 1);
+INSERT INTO ALLIANZ (AL_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION, AD_ID) 
+VALUES (3, 'XKCD Fanclub', 'For all the fellow science nerds.', to_timestamp('2021-02-28 03:36:42', 'YYYY-MM-DD HH24:MI:SS'), 2);
+INSERT INTO ALLIANZ (AL_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION, AD_ID) 
+VALUES (4, 'Definitely not cops', 'Have you heard new ways of making money online lately? Come join us.', to_timestamp('2021-10-17 21:55:08', 'YYYY-MM-DD HH24:MI:SS'), 3);
+
+/*UPDATE ADMINISTRATION*/
+UPDATE ADMINISTRATION
+SET AL_ID = 2
+WHERE AD_ID = 1;
+UPDATE ADMINISTRATION
+SET AL_ID = 3
+WHERE AD_ID = 2;
+UPDATE ADMINISTRATION
+SET AL_ID = 4
+WHERE AD_ID = 3;
+UPDATE ADMINISTRATION
+SET AL_ID = 1
+WHERE AD_ID = 4;
+
 /* ACCOUNT */
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (1,'tnorridge0','jHTm8SIcdOV','elongstaffe0@vkontakte.ru',TO_TIMESTAMP('2021-07-08 16:34:26', 'yyyy/mm/dd hh24:mi:ss'),0,'9f71a834ab6b19e5f95958604dfa8eb2e0547f64');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (2,'ppolle1','BRZJrQwntT','ofew1@wikispaces.com',TO_TIMESTAMP('2021-01-18 17:20:31', 'yyyy/mm/dd hh24:mi:ss'),0,'68db480f187a19bfc6c47c9c19082af9bade668e');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (3,'rdearness2','QMkF9Sv2Zvy','abrellin2@google.com',TO_TIMESTAMP('2021-10-30 05:57:32', 'yyyy/mm/dd hh24:mi:ss'),1,'578f3c74394bfa343e7075f7f5f8b13eccb66142');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (4,'zpridham3','IktWLXp','ffrisby3@oracle.com',TO_TIMESTAMP('2021-04-25 22:57:58', 'yyyy/mm/dd hh24:mi:ss'),0,'2de8e578c6a674b61faa3872b02621dfdf552a30');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (5,'mstrange4','azju63','spenniell4@liveinternet.ru',TO_TIMESTAMP('2021-02-13 05:59:24', 'yyyy/mm/dd hh24:mi:ss'),1,'885a4c71754ee4eace35e963194400f2c17a0a91');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (6,'bkeuntje5','vvb38Ss5','ddemogeot5@jalbum.net',TO_TIMESTAMP('2021-05-19 20:01:22', 'yyyy/mm/dd hh24:mi:ss'),0,'d447f2709ccf7af0956cfef42543004af35503cd');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (7,'jbryers6','5JGFOWQQzgn','dmoughtin6@naver.com',TO_TIMESTAMP('2020-12-24 18:04:03', 'yyyy/mm/dd hh24:mi:ss'),0,'703b9d5347fa4ac6b4a9976a0cadb3b9706398f9');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (8,'bmusto7','R0CTvyvvRI','dhawtin7@behance.net',TO_TIMESTAMP('2021-01-28 17:07:55', 'yyyy/mm/dd hh24:mi:ss'),1,'a1dbe0d7d0c7ad061bf5e17d80013f2d13913b1b');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (19,'mhakonsson8','dBIwh3','jchristophersen8@fc2.com',TO_TIMESTAMP('2021-01-02 03:00:28', 'yyyy/mm/dd hh24:mi:ss'),0,'811312f6c93314334063d79761ce5385ff85cc41');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (10,'adytham9','bXCU8Sxjfin','trhelton9@aboutads.info',TO_TIMESTAMP('2021-10-10 02:52:35', 'yyyy/mm/dd hh24:mi:ss'),0,'76ea580bba382edb247da39bdf82d2c50ae8254d');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (11,'llezemorea','8vKZcdaI','mhickina@exblog.jp',TO_TIMESTAMP('2021-08-27 07:03:10', 'yyyy/mm/dd hh24:mi:ss'),1,'8a1a140183826b36dde915b02ab847adf4a708e6');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (12,'nkirkbrideb','3CBy0reCOoXV','ehulkeb@addthis.com',TO_TIMESTAMP('2021-08-21 00:45:51', 'yyyy/mm/dd hh24:mi:ss'),1,'ec6fb013898f6229a7a38ad3903e5af36996a3aa');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (13,'sgrimwadc','Eg20sJOxbs','mcobelloc@amazonaws.com',TO_TIMESTAMP('2021-07-13 14:17:06', 'yyyy/mm/dd hh24:mi:ss'),1,'00eeb82ea0c7462d1bf06ee39efb531459c65cda');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (14,'lthreshd','JVDJIVthCo9f','ebarberad@adobe.com',TO_TIMESTAMP('2021-09-11 11:04:23', 'yyyy/mm/dd hh24:mi:ss'),1,'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (15,'pholmese','wuJWBF','jwoodere@list-manage.com',TO_TIMESTAMP('2021-09-05 22:54:43', 'yyyy/mm/dd hh24:mi:ss'),1,'4129658a6a43efca3eb5b036603ead7783bc59ce');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (16,'areddyf','N58ME93g6BI','cshottonf@amazon.de',TO_TIMESTAMP('2021-03-10 11:52:46', 'yyyy/mm/dd hh24:mi:ss'),0,'a16227ef49f64c0316436734b10fbd95847930ff');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (17,'ipunchg','EZhi5f7VDaq','ebracknallg@technorati.com',TO_TIMESTAMP('2021-01-18 11:45:41', 'yyyy/mm/dd hh24:mi:ss'),1,'ba7715050c110dd26276f1d723cf39f5562af20e');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (18,'kcoulsenh','ZYco1Ys7S','zclaisseh@blog.com',TO_TIMESTAMP('2021-07-11 02:27:01', 'yyyy/mm/dd hh24:mi:ss'),1,'a94c18844d114936172f09a3969662656cbf87b0');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (9,'cjaimezi','o6ZZ0D','sbartkei@cnn.com',TO_TIMESTAMP('2021-01-07 12:07:26', 'yyyy/mm/dd hh24:mi:ss'),1,'75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
-INSERT INTO ACCOUNT(acc_id,acc_username,acc_password,acc_email,acc_letzter_login,acc_premium,acc_payment_token)
-VALUES (20,'ifullej','CpcKLE','kallcottj@booking.com',TO_TIMESTAMP('2021-05-01 16:02:23', 'yyyy/mm/dd hh24:mi:ss'),1,'126d1df38b226e39027ce0f2b9b5182bfcb3af10');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (1, 1, 'tnorridge0', 'jHTm8SIcdOV', 'elongstaffe0@vkontakte.ru', to_timestamp('2021-07-08 16:34:26', 'YYYY-MM-DD HH24:MI:SS'), 0, '9f71a834ab6b19e5f95958604dfa8eb2e0547f64');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (2, 3, 'ppolle1', 'BRZJrQwntT', 'ofew1@wikispaces.com', to_timestamp('2021-07-07 17:20:31', 'YYYY-MM-DD HH24:MI:SS'), 0, '68db480f187a19bfc6c47c9c19082af9bade668e');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (3, 2, 'rdearness2', 'QMkF9Sv2Zvy', 'abrellin2@google.com', to_timestamp('2021-10-30 05:57:32', 'YYYY-MM-DD HH24:MI:SS'), 1, '578f3c74394bfa343e7075f7f5f8b13eccb66142');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (4, 4, 'zpridham3', 'IktWLXp', 'ffrisby3@oracle.com', to_timestamp('2021-04-25 22:57:58', 'YYYY-MM-DD HH24:MI:SS'), 0, '2de8e578c6a674b61faa3872b02621dfdf552a30');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (5, 3, 'mstrange4', 'azju63', 'spenniell4@liveinternet.ru', to_timestamp('2021-02-13 05:59:24', 'YYYY-MM-DD HH24:MI:SS'), 1, '885a4c71754ee4eace35e963194400f2c17a0a91');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (6, 1, 'bkeuntje5', 'vvb38Ss5', 'ddemogeot5@jalbum.net', to_timestamp('2021-05-19 20:01:22', 'YYYY-MM-DD HH24:MI:SS'), 0, 'd447f2709ccf7af0956cfef42543004af35503cd');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (7, 2, 'jbryers6', '5JGFOWQQzgn', 'dmoughtin6@naver.com', to_timestamp('2020-12-24 18:04:03', 'YYYY-MM-DD HH24:MI:SS'), 0, '703b9d5347fa4ac6b4a9976a0cadb3b9706398f9');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (8, 3, 'bmusto7', 'R0CTvyvvRI', 'dhawtin7@behance.net', to_timestamp('2021-01-28 17:07:55', 'YYYY-MM-DD HH24:MI:SS'), 1, 'a1dbe0d7d0c7ad061bf5e17d80013f2d13913b1b');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (9, 3, 'mhakonsson8', 'dBIwh3', 'jchristophersen8@fc2.com', to_timestamp('2021-01-02 03:00:28', 'YYYY-MM-DD HH24:MI:SS'), 0, '811312f6c93314334063d79761ce5385ff85cc41');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (10, 2, 'adytham9', 'bXCU8Sxjfin', 'trhelton9@aboutads.info', to_timestamp('2021-10-10 02:52:35', 'YYYY-MM-DD HH24:MI:SS'), 0, '76ea580bba382edb247da39bdf82d2c50ae8254d');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (11, 4, 'llezemorea', '8vKZcdaI', 'mhickina@exblog.jp', to_timestamp('2021-08-27 07:03:10', 'YYYY-MM-DD HH24:MI:SS'), 1, '8a1a140183826b36dde915b02ab847adf4a708e6');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (12, 3, 'nkirkbrideb', '3CBy0reCOoXV', 'ehulkeb@addthis.com', to_timestamp('2021-10-30 06:57:32', 'YYYY-MM-DD HH24:MI:SS'), 1, 'ec6fb013898f6229a7a38ad3903e5af36996a3aa');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (13, 2, 'sgrimwadc', 'Eg20sJOxbs', 'mcobelloc@amazonaws.com', to_timestamp('2021-07-13 14:17:06', 'YYYY-MM-DD HH24:MI:SS'), 1, '00eeb82ea0c7462d1bf06ee39efb531459c65cda');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (14, 3, 'lthreshd', 'JVDJIVthCo9f', 'ebarberad@adobe.com', to_timestamp('2021-11-02 06:57:32', 'YYYY-MM-DD HH24:MI:SS'), 1, 'e7c8296655d58678fa4ce63ad468f07e44a5f5a1');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (15, 4, 'pholmese', 'wuJWBF', 'jwoodere@list-manage.com', to_timestamp('2021-09-05 22:54:43', 'YYYY-MM-DD HH24:MI:SS'), 1, '4129658a6a43efca3eb5b036603ead7783bc59ce');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (16, 3, 'areddyf', 'N58ME93g6BI', 'cshottonf@amazon.de', to_timestamp('2021-03-10 11:52:46', 'YYYY-MM-DD HH24:MI:SS'), 0, 'a16227ef49f64c0316436734b10fbd95847930ff');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (17, 2, 'ipunchg', 'EZhi5f7VDaq', 'ebracknallg@technorati.com', to_timestamp('2021-01-18 11:45:41', 'YYYY-MM-DD HH24:MI:SS'), 1, 'ba7715050c110dd26276f1d723cf39f5562af20e');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (18, 1, 'kcoulsenh', 'ZYco1Ys7S', 'zclaisseh@blog.com', to_timestamp('2021-07-11 02:27:01', 'YYYY-MM-DD HH24:MI:SS'), 1, 'a94c18844d114936172f09a3969662656cbf87b0');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (19, 2, 'cjaimezi', 'o6ZZ0D', 'sbartkei@cnn.com', to_timestamp('2021-01-07 12:07:26', 'YYYY-MM-DD HH24:MI:SS'), 1, '75f5b2d1a38914bb59e405e6ca0eee8c205b4a94');
+INSERT INTO ACCOUNT (ACC_ID, AL_ID, ACC_USERNAME, ACC_PASSWORD, ACC_EMAIL, ACC_LETZTER_LOGIN, ACC_PREMIUM, ACC_PAYMENT_TOKEN) 
+VALUES (20, 2, 'ifullej', 'CpcKLE', 'kallcottj@booking.com', to_timestamp('2021-05-01 16:02:23', 'YYYY-MM-DD HH24:MI:SS'), 1, '126d1df38b226e39027ce0f2b9b5182bfcb3af10');
+
+/*USER_TO_ADMIN*/
+INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID) VALUES (2,2);
+INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID) VALUES (1,4);
+INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID) VALUES (3,1);
+INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID) VALUES (7,1);
+INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID) VALUES (11,3);
+
+/*CHATROOM*/
+INSERT INTO CHATROOM (CR_ID, CR_TOPIC, CR_DATE_OF_CREATION, AL_ID) 
+VALUES (1, 'Tech-News', to_timestamp('2021-01-27 03:13:05', 'YYYY-MM-DD HH24:MI:SS'), 1);
+INSERT INTO CHATROOM (CR_ID, CR_TOPIC, CR_DATE_OF_CREATION, AL_ID) 
+VALUES (2, 'Kaffeerunde', to_timestamp('2021-01-27 04:00:05', 'YYYY-MM-DD HH24:MI:SS'), 1);
+INSERT INTO CHATROOM (CR_ID, CR_TOPIC, CR_DATE_OF_CREATION, AL_ID) 
+VALUES (3, 'strategy planning', to_timestamp('2021-03-02 03:36:42', 'YYYY-MM-DD HH24:MI:SS'), 3);
+
+/*CHATROOM_NACHRICHT*/
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (1, 2, to_timestamp('2021-03-02 03:36:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'Hello everybody, this chatroom will be used for planning attacks on other alliances.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (2, 12, to_timestamp('2021-03-02 03:40:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'Wouldnâ€™t it be easier, to use a forum for that?');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (3, 2, to_timestamp('2021-03-02 03:42:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'As of now, I think a simple chat room will be enough, because we wonâ€™t have multiple concurrent attacks going, I think');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (4, 14, to_timestamp('2021-03-02 03:43:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'Yes, I think so too.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (5, 2, to_timestamp('2021-03-02 03:45:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'If a chatroom is not enough, we can migrate to a forum, but for now we will keep the discussion here.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (6, 12, to_timestamp('2021-03-02 03:51:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'ok.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (7, 5, to_timestamp('2021-03-02 03:53:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'I think, we should attack the definitely not cops alliance ');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (8, 12, to_timestamp('2021-03-02 03:55:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'I donâ€™t think, this is a good idea. The only have some small castles, which are also really far away.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (9, 14, to_timestamp('2021-03-02 03:59:42', 'YYYY-MM-DD HH24:MI:SS'), 3, 'Yep, I donâ€™t think, they are a real threat right now.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (10, 1, to_timestamp('2021-01-27 04:20:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Moin, das hier ist einfach ein entspannter Chatroom, in dem man Ã¼ber alles mÃ¶gliche reden kann.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (11, 6, to_timestamp('2021-01-27 04:21:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Cool.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (12, 18, to_timestamp('2021-01-27 04:23:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Was macht ihr so beruflich?');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (13, 1, to_timestamp('2021-01-27 04:32:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Bin Student.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (14, 6, to_timestamp('2021-01-27 04:34:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Jo, ich auch.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (15, 18, to_timestamp('2021-01-27 04:42:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Wow, ich auch!');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (16, 18, to_timestamp('2021-01-27 04:45:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Was studiert ihr denn so?');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (17, 6, to_timestamp('2021-01-27 04:51:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Soziale Arbeit.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (18, 18, to_timestamp('2021-01-27 04:52:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Das ist ziemlich cool.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (19, 1, to_timestamp('2021-01-27 04:53:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Ich studiere Physik.');
+INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CRN_DATE_OF_CREATION, CR_ID, CRN_INHALT) 
+VALUES (20, 18, to_timestamp('2021-01-27 04:56:05', 'YYYY-MM-DD HH24:MI:SS'), 2, 'Respekt.');
+
+/*CHATNACHRICHT*/
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (1, 1, 2, 'Hallo', to_timestamp('2021-07-07 16:34:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (2, 2, 1, 'Kennen wir uns?', to_timestamp('2021-07-07 16:35:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (3, 1, 2, 'Bisher nicht.', to_timestamp('2021-07-07 16:40:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (4, 2, 1, 'Und das soll sich jetzt ändern?', to_timestamp('2021-07-07 16:44:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (5, 1, 2, 'Hatte ich mir so vorgestellt.', to_timestamp('2021-07-07 16:45:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (6, 2, 1, 'Interessant.', to_timestamp('2021-07-07 16:50:26', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (7, 3, 12, 'Hi, wie war die Vorlesung?', to_timestamp('2021-10-28 16:57:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (8, 12, 3, 'Joa, war ganz interessant.', to_timestamp('2021-10-28 16:58:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (9, 3, 12, 'Hab ich was verpasst?', to_timestamp('2021-10-28 17:02:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (10, 3, 12, 'Hat sie was zur Prüfungsvorbereitung gesagt.', to_timestamp('2021-10-28 17:04:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (11, 12, 3, 'Ne.', to_timestamp('2021-10-28 17:06:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (12, 3, 12, 'Okay, dann hab ich ja nochmal Glück gehabt.', to_timestamp('2021-10-28 17:08:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (13, 12, 14, 'Hey, have you any experience with the boost packs from the ingame shop?', to_timestamp('2021-10-29 09:08:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (14, 14, 12, 'No, not really.', to_timestamp('2021-10-29 09:10:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (15, 14, 12, 'Why are you asking.', to_timestamp('2021-10-29 09:12:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (16, 12, 14, 'Was thinking about purchasing a general booster, to boost the production in all of my castles..', to_timestamp('2021-10-29 09:14:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (17, 14, 12, 'Wow, that sounds usefull.', to_timestamp('2021-10-29 09:16:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (18, 12, 14, 'Yeah, thought so too.', to_timestamp('2021-10-29 09:17:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (19, 14, 12, 'Could you keep me updated, if it is worth it?', to_timestamp('2021-10-29 09:19:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO CHATNACHRICHT (CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION) 
+VALUES (20, 12, 14, 'Will do.', to_timestamp('2021-10-29 09:21:32', 'YYYY-MM-DD HH24:MI:SS'));
+
+/*FORUM*/
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (1, 3, to_timestamp('2021-03-04 03:36:42', 'YYYY-MM-DD HH24:MI:SS'), 'understand xkcd');
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (2, 3, to_timestamp('2021-04-28 03:37:42', 'YYYY-MM-DD HH24:MI:SS'), 'character analysis');
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (3, 1, to_timestamp('2021-03-25 03:13:05', 'YYYY-MM-DD HH24:MI:SS'), 'Raketenwissenschaft');
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (4, 1, to_timestamp('2021-03-25 03:13:05', 'YYYY-MM-DD HH24:MI:SS'), 'Allianz-Angriffsplanung');
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (5, 2, to_timestamp('2021-12-11 17:02:24', 'YYYY-MM-DD HH24:MI:SS'), 'Allianz-Angriffsplanung');
+INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC) 
+VALUES (6, 4, to_timestamp('2021-12-14 17:02:24', 'YYYY-MM-DD HH24:MI:SS'), 'Ways to make easy money online');
+
+/*EINTRAG*/
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (1, 1, 8, 'question about 208', 'What excatly is perl? Is this some kind of comic expression, like „BANG“?', to_timestamp('2021-03-04 03:36:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (1, 2, 12, 'best xkcd about programming', 'What the title says, just curious to hear about your favorite xckd’s about programming', to_timestamp('2021-04-28 03:37:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (2, 3, 14, 'So, is cueball Randall or not?', 'Some of the comics seem to have a really personal touch about them, so I’m wondering about what the title says.', to_timestamp('2021-03-25 03:13:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (3, 4, 6, 'Warum Raketen?', 'Wir haben genug Probleme auf der Erde, warum wird so viel in Weltraumforschung investiert?', to_timestamp('2021-03-25 03:13:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (3, 5, 18, 'Ist SpaceX oder Blue Origin revolutionärer?', 'Blue Origin hat ja ganz gute Ideen, aber SpaceX ist meiner Meinung nach einfach zehn Schritte weiter. Wie seht ihr das?', to_timestamp('2021-12-11 17:02:24', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO EINTRAG (FO_ID, EI_ID, ACC_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION) 
+VALUES (5, 6, 7, 'Attack the xkcd alliance?', 'The xkcd-alliance holds some strategically important positions, maybe we should attack them.', to_timestamp('2021-12-14 17:02:24', 'YYYY-MM-DD HH24:MI:SS'));
+
+/*KOMMENTAR*/
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (1, 1, 5, 'It is a programming language.', to_timestamp('2021-03-04 03:38:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (2, 1, 8, 'Okay, but how does it relate to regular expressions (and by the way: what are regular expressions?) I don’t get it', to_timestamp('2021-03-04 03:39:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (3, 1, 12, 'Did you hear about GOOGLE? You can search stuff with it. Instead of asking stupid questions.', to_timestamp('2021-03-04 03:40:31', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (4, 1, 2, 'This forum is for asking questions, which is precisely what the poster did, so please be nice.', to_timestamp('2021-03-04 03:41:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (5, 1, 5, 'A regular expression is a kind of pattern, which you can use to search large texts without doing all the manual work. Perl is often regarded as being a very efficient programming language, if it comes to evaluating regular expressions.', to_timestamp('2021-03-04 03:43:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (6, 1, 8, 'Ah, okay, that sound really usefull, I should try to learn something about that. Thank you so much.', to_timestamp('2021-03-04 03:44:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (7, 1, 5, 'Believe me, it is :)', to_timestamp('2021-03-04 03:45:32', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (8, 2, 5, 'I like 208. The framing of knowing regular expressions beeing like a superpower is really funny to me.', to_timestamp('2021-04-28 03:38:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (9, 2, 14, 'I think 378 is also really funny. The absurdity of it mimics the holy wars beeing fought over what being a „real“ programmer means really perfectly.', to_timestamp('2021-04-28 03:42:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (10, 2, 12, 'Well everybody knows, that emacs is obviously the superior text editor…', to_timestamp('2021-04-28 03:43:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (11, 2, 5, 'Oh, please don’t get me started..', to_timestamp('2021-04-28 04:21:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (12, 2, 5, 'Do you honestly like the keybindings of emacs? What is wrong with you?', to_timestamp('2021-04-28 04:22:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (13, 2, 5, 'Are you some kind of masochist?', to_timestamp('2021-04-28 04:23:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (14, 2, 14, 'Case and point.', to_timestamp('2021-04-28 04:24:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (15, 2, 2, 'Okay, everybody calm down now.', to_timestamp('2021-04-28 04:26:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (16, 2, 16, 'Was pretty funny though..', to_timestamp('2021-04-28 04:28:42', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (17, 3, 12, 'Yeah, obviously.', to_timestamp('2021-03-25 03:14:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (18, 3, 14, 'Care to elaborate?', to_timestamp('2021-03-25 03:15:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (19, 3, 12, 'Cueball seems way to have way too much of a personality, to just be the generic everyman.', to_timestamp('2021-03-25 03:16:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (20, 3, 14, 'Hmm, yeah, he really seems to have quite a personality, but it changes too often to really refelct the values of randall.', to_timestamp('2021-03-25 03:17:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (21, 3, 14, 'I think, generally it leans into randall personal values but changes, according to the narrative needs of the comicstrip.', to_timestamp('2021-03-25 03:18:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (22, 3, 12, 'Not convinced.', to_timestamp('2021-03-25 03:19:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (23, 3, 14, 'Okay, you don’t need to be, but this is a discussion forum, it is for discussion.', to_timestamp('2021-03-25 04:13:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (24, 3, 5, 'Jeez, here we go again…', to_timestamp('2021-03-25 04:14:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (25, 3, 12, 'You shut up and play your little game of vim.', to_timestamp('2021-03-25 04:16:05', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (26, 6, 10, 'Sounds good, when shall we attack?', to_timestamp('2021-12-14 17:02:24', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (27, 6, 13, 'Well, I can do next tuesday', to_timestamp('2021-12-14 17:10:24', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (28, 6, 17, 'Next tuesday sounds good.', to_timestamp('2021-12-14 17:18:24', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO KOMMENTAR (KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION) 
+VALUES (29, 6, 19, 'Yeah for me too.', to_timestamp('2021-12-14 17:23:24', 'YYYY-MM-DD HH24:MI:SS'));
 
 /* ITEM */
 INSERT INTO ITEM(item_id,item_name,item_beschreibung,item_preis,item_verkaufbar)

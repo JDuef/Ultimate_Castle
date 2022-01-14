@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 19c                           */
-/* Created on:     12.01.2022 15:21:50                          */
+/* Created on:     13.01.2022 21:43:14                          */
 /*==============================================================*/
 
 
@@ -15,9 +15,6 @@ alter table ACCOUNT_TO_ITEM
 
 alter table ADMINISTRATION
    drop constraint FK_ADMINIST_WIRD_VERW_ALLIANZ;
-
-alter table ALLIANZ
-   drop constraint FK_ALLIANZ_ALLIANZ_T_FORUM;
 
 alter table ALLIANZ
    drop constraint FK_ALLIANZ_VERWALTET_ADMINIST;
@@ -95,7 +92,7 @@ alter table EINTRAG
    drop constraint FK_EINTRAG_USER_TO_E_ACCOUNT;
 
 alter table FORUM
-   drop constraint FK_FORUM_ADMIN_TO__ADMINIST;
+   drop constraint FK_FORUM_ALLIANZ_T_ALLIANZ;
 
 alter table GEBOT
    drop constraint FK_GEBOT_ACCOUNT_T_ACCOUNT;
@@ -151,8 +148,6 @@ drop index WIRD_VERWALTET_FK;
 drop table ADMINISTRATION cascade constraints;
 
 drop index VERWALTET_FK;
-
-drop index ALLIANZ_TO_FORUM_FK;
 
 drop table ALLIANZ cascade constraints;
 
@@ -234,7 +229,7 @@ drop index FORUM_TO_EINTRAG_FK;
 
 drop table EINTRAG cascade constraints;
 
-drop index ADMIN_TO_FORUM_FK;
+drop index ALLIANZ_TO_FORUM_FK;
 
 drop table FORUM cascade constraints;
 
@@ -355,19 +350,11 @@ create index WIRD_VERWALTET_FK on ADMINISTRATION (
 /*==============================================================*/
 create table ALLIANZ (
    AL_ID                INTEGER               not null,
-   FO_ID                INTEGER               not null,
    AD_ID                INTEGER               not null,
    AL_NAME              CLOB                  not null,
    AL_BESCHREIBUNG      CLOB,
    AL_DATE_OF_CREATION  TIMESTAMP,
    constraint PK_ALLIANZ primary key (AL_ID)
-);
-
-/*==============================================================*/
-/* Index: ALLIANZ_TO_FORUM_FK                                   */
-/*==============================================================*/
-create index ALLIANZ_TO_FORUM_FK on ALLIANZ (
-   FO_ID ASC
 );
 
 /*==============================================================*/
@@ -725,17 +712,17 @@ create index USER_TO_EINTRAG_FK on EINTRAG (
 /*==============================================================*/
 create table FORUM (
    FO_ID                INTEGER               not null,
-   AD_ID                INTEGER               not null,
+   AL_ID                INTEGER               not null,
    FO_DATE_OF_CREATION  TIMESTAMP             not null,
    FO_TOPIC             CLOB                  not null,
    constraint PK_FORUM primary key (FO_ID)
 );
 
 /*==============================================================*/
-/* Index: ADMIN_TO_FORUM_FK                                     */
+/* Index: ALLIANZ_TO_FORUM_FK                                   */
 /*==============================================================*/
-create index ADMIN_TO_FORUM_FK on FORUM (
-   AD_ID ASC
+create index ALLIANZ_TO_FORUM_FK on FORUM (
+   AL_ID ASC
 );
 
 /*==============================================================*/
@@ -978,10 +965,6 @@ alter table ADMINISTRATION
       references ALLIANZ (AL_ID);
 
 alter table ALLIANZ
-   add constraint FK_ALLIANZ_ALLIANZ_T_FORUM foreign key (FO_ID)
-      references FORUM (FO_ID);
-
-alter table ALLIANZ
    add constraint FK_ALLIANZ_VERWALTET_ADMINIST foreign key (AD_ID)
       references ADMINISTRATION (AD_ID);
 
@@ -1106,8 +1089,8 @@ alter table EINTRAG
       ON DELETE CASCADE;
 
 alter table FORUM
-   add constraint FK_FORUM_ADMIN_TO__ADMINIST foreign key (AD_ID)
-      references ADMINISTRATION (AD_ID);
+   add constraint FK_FORUM_ALLIANZ_T_ALLIANZ foreign key (AL_ID)
+      references ALLIANZ (AL_ID);
 
 alter table GEBOT
    add constraint FK_GEBOT_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
