@@ -1013,7 +1013,7 @@ alter table ATTRIBUT_TO_ITEM
 alter table AUKTION
    add constraint FK_AUKTION_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID)
-      ON DELETE SET NULL;
+      ON DELETE CASCADE;
 
 alter table AUKTION
    add constraint FK_AUKTION_AUTKION_T_ITEM foreign key (ITEM_ID)
