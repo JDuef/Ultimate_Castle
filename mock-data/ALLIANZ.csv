@@ -1,6 +1,5 @@
-Allianzen,,,
-id,name,beschreibung,date_of_creation
-1,Technologie-Enthusiasten,Wir mÃ¶gen Technik.,2021-01-25 03:13:05
-2,The one and only,"Die einzige Gilde, die diese Welt braucht",2020-12-24 00:32:22
-3,XKCD Fanclub,For all the fellow science nerds.,2021-02-28 03:36:42
-4,Definitely not cops,Have you heard new ways of making money online lately? Come join us.,2021-10-17 21:55:08
+al_id,name,beschreibung,date_of_creation,ad_id
+1,Technologie-Enthusiasten,Wir mögen Technik.,2021-01-25 03:13:05,4
+2,The one and only,"Die einzige Gilde, die diese Welt braucht",2020-12-24 00:32:22,1
+3,XKCD Fanclub,For all the fellow science nerds.,2021-02-28 03:36:42,2
+4,Definitely not cops,Have you heard new ways of making money online lately? Come join us.,2021-10-17 21:55:08,3
