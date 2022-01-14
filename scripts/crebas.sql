@@ -964,11 +964,13 @@ alter table ACCOUNT
 
 alter table ACCOUNT_TO_ITEM
    add constraint FK_ACCOUNT__BESITZT2_ITEM foreign key (ITEM_ID)
-      references ITEM (ITEM_ID);
+      references ITEM (ITEM_ID)
+      ON DELETE CASCADE;
 
 alter table ACCOUNT_TO_ITEM
    add constraint FK_ACCOUNT__BEZITZT_V_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table ADMINISTRATION
    add constraint FK_ADMINIST_WIRD_VERW_ALLIANZ foreign key (AL_ID)
@@ -1000,31 +1002,38 @@ alter table ATTRIBUTE
 
 alter table ATTRIBUT_TO_ITEM
    add constraint FK_ATTRIBUT_AUF_ITEM foreign key (ITEM_ID)
-      references ITEM (ITEM_ID);
+      references ITEM (ITEM_ID)
+      ON DELETE CASCADE;
 
 alter table ATTRIBUT_TO_ITEM
    add constraint FK_ATTRIBUT_HAT_ITEM_ATT foreign key (ITAT_ID)
-      references ITEM_ATTRIBUT (ITAT_ID);
+      references ITEM_ATTRIBUT (ITAT_ID)
+      ON DELETE CASCADE;
 
 alter table AUKTION
    add constraint FK_AUKTION_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE SET NULL;
 
 alter table AUKTION
    add constraint FK_AUKTION_AUTKION_T_ITEM foreign key (ITEM_ID)
-      references ITEM (ITEM_ID);
+      references ITEM (ITEM_ID)
+      ON DELETE CASCADE;
 
 alter table BESTELLUNG
    add constraint FK_BESTELLU_KAUF_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table BESTELLUNG_TO_ITEM
    add constraint FK_BESTELLU_BEINHALTE_ITEM foreign key (ITEM_ID)
-      references ITEM (ITEM_ID);
+      references ITEM (ITEM_ID)
+      ON DELETE CASCADE;
 
 alter table BESTELLUNG_TO_ITEM
    add constraint FK_BESTELLU_IN_BESTELLU foreign key (BEST_ID)
-      references BESTELLUNG (BEST_ID);
+      references BESTELLUNG (BEST_ID)
+      ON DELETE CASCADE;
 
 alter table BURG
    add constraint FK_BURG_KONIGREIC_KOENIGRE foreign key (KOE_ID)
@@ -1084,11 +1093,13 @@ alter table FORUM
 
 alter table GEBOT
    add constraint FK_GEBOT_ACCOUNT_T_ACCOUNT foreign key (ACC_ID)
-      references ACCOUNT (ACC_ID);
+      references ACCOUNT (ACC_ID)
+      ON DELETE CASCADE;
 
 alter table GEBOT
    add constraint FK_GEBOT_AUKTION_T_AUKTION foreign key (AUK_ID)
-      references AUKTION (AUK_ID);
+      references AUKTION (AUK_ID)
+      ON DELETE CASCADE;
 
 alter table GEB_TO_GEBEIG
    add constraint FK_GEB_TO_G_GEHORT2_GEBAEUDE foreign key (GEB_ID)
