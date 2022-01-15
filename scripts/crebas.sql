@@ -1157,6 +1157,52 @@ alter table USER_TO_ADMIN
       references ACCOUNT (ACC_ID)
       ON DELETE CASCADE;
 	  
+/* views */
+      
+/* Alle geschriebenen Nachrichten (Chatroom-Nachrichten & Forenkommentare) eines Nutzers anzeigen*/
+CREATE OR REPLACE VIEW nachrichtenuebersicht AS
+SELECT acc_id, content, date_of_creation, nachrichtentyp FROM 
+    (SELECT acc_id, ko_inhalt AS content, ko_date_of_creation AS date_of_creation, 'Kommentar' AS NACHRICHTENTYP
+        FROM KOMMENTAR
+    UNION ALL   
+    SELECT acc_id, cn_inhalt AS content, cn_date_of_creation AS date_of_creation, 'Chatnachricht' AS NACHRICHTENTYP
+        FROM CHATNACHRICHT)
+        ;
+        
+/* Alle Kommentare eines Foreneintrages zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+CREATE OR REPLACE VIEW kommentarverlauf AS
+SELECT ACCOUNT.acc_username AS username, KOMMENTAR.ko_inhalt as content, 
+KOMMENTAR.ko_date_of_creation as date_of_creation, KOMMENTAR.ei_id as eintrag_id
+FROM KOMMENTAR
+INNER JOIN ACCOUNT 
+ON account.acc_id=kommentar.acc_id;
+
+/* Alle chatraum nachrichten zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+CREATE OR REPLACE VIEW chatraumverlauf AS
+SELECT ACCOUNT.acc_username AS username, CHATROOM_NACHRICHT.crn_inhalt as content, CHATROOM_NACHRICHT.CRN_DATE_OF_CREATION as date_of_creation, CHATROOM_NACHRICHT.cr_id as chatroom_id
+FROM CHATROOM_NACHRICHT
+INNER JOIN ACCOUNT 
+ON account.acc_id=CHATROOM_NACHRICHT.acc_id;
+
+/* Foreneintraege, deren letzter Kommentar aelter als angegebene Zeit ist */
+CREATE OR REPLACE VIEW letzterkommentar AS 
+SELECT eintrag_id, MAX(date_of_creation) AS DATE_LATEST_COMMENT
+FROM kommentarverlauf group by eintrag_id;
+
+/* Accounts, die in forum kommentieren duerfen */
+CREATE OR REPLACE VIEW accounts_in_forum AS
+SELECT FORUM.FO_ID, ACCOUNT.ACC_ID 
+FROM FORUM
+INNER JOIN ACCOUNT 
+ON ACCOUNT.AL_ID=FORUM.AL_ID;
+
+/* Accounts, die in chatroom schreiben duerfen */
+CREATE OR REPLACE VIEW accounts_in_chatroom AS
+SELECT CHATROOM.CR_ID, ACCOUNT.ACC_ID 
+FROM CHATROOM
+INNER JOIN ACCOUNT 
+ON ACCOUNT.AL_ID=CHATROOM.AL_ID;
+
 
       
 /* procedures */
@@ -1209,7 +1255,19 @@ BEGIN
     VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), chatroom_topic);    
 END NEUEN_CHATROOM_ANLEGEN;
 /  
-      
+
+CREATE OR REPLACE PROCEDURE NEUE_CHATROOM_NACHRICHT(
+    chatroom_id IN CHATROOM.CR_ID%TYPE,
+    sender_id IN ACCOUNT.ACC_ID%TYPE,
+    content IN CHATROOM_NACHRICHT.CRN_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CR_ID, CRN_DATE_OF_CREATION, CRN_INHALT)
+    VALUES (NULL, sender_id, chatroom_id, (SELECT SYSDATE from dual), content);    
+END NEUE_CHATROOM_NACHRICHT;
+/
+
 /* sequences and triggers on insert */
 DROP SEQUENCE admin_seq;
 
@@ -1297,4 +1355,65 @@ BEGIN
       INTO :new.cr_id
       FROM dual;
 END chatroom_on_insert;
+/
+
+DROP SEQUENCE chatroomnachricht_seq;
+
+CREATE SEQUENCE chatroomnachricht_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatroomnachricht_on_insert
+  BEFORE INSERT 
+  ON CHATROOM_NACHRICHT
+  FOR EACH ROW
+BEGIN
+  SELECT 
+    CASE 
+        WHEN :new.crn_id IS NULL THEN chatroomnachricht_seq.nextval
+        ELSE :new.crn_id 
+    END
+  INTO :new.crn_id
+  FROM dual;
+END chatroomnachricht_on_insert;
+/
+
+/* prueft, ob sender der nachricht auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER chatroomnachricht_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON CHATROOM_NACHRICHT
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM ACCOUNTS_IN_CHATROOM WHERE ACC_ID=:new.acc_id AND CR_ID=:new.cr_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Chatrooms');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
+
+DROP SEQUENCE chatnachricht_seq;
+
+CREATE SEQUENCE chatnachricht_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatnachricht_on_insert
+  BEFORE INSERT 
+  ON CHATNACHRICHT
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.cn_id IS NULL THEN chatnachricht_seq.nextval
+            ELSE :new.cn_id 
+        END
+      INTO :new.cn_id
+      FROM dual;
+END chatnachricht_on_insert;
 /
