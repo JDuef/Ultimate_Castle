@@ -1285,6 +1285,34 @@ BEGIN
 END FORENEINTRAG_KOMMENTIEREN;
 /
 
+CREATE OR REPLACE PROCEDURE CHATNACHRICHT_VERSENDEN(
+    to_id IN CHATNACHRICHT.ACC_ID%TYPE,
+    from_id IN CHATNACHRICHT.ACC_ACC_ID%TYPE,
+    inhalt IN CHATNACHRICHT.CN_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATNACHRICHT(CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION)
+    VALUES (NULL, from_id, to_id, inhalt, (SELECT SYSDATE from dual));
+END CHATNACHRICHT_VERSENDEN;
+/
+
+CREATE OR REPLACE PROCEDURE CHATNACHRICHT_BEANTWORTEN(
+    nachricht_id IN CHATNACHRICHT.CN_ID%TYPE,
+    antwort_text IN CHATNACHRICHT.CN_INHALT%TYPE
+)
+AS
+    from_id CHATNACHRICHT.ACC_ID%TYPE;
+    to_id CHATNACHRICHT.ACC_ACC_ID%TYPE;
+BEGIN
+    SELECT (ACC_ACC_ID) INTO from_id FROM CHATNACHRICHT WHERE CN_ID=nachricht_id;
+    SELECT (ACC_ID) INTO to_id FROM CHATNACHRICHT WHERE CN_ID=nachricht_id;
+    
+    INSERT INTO CHATNACHRICHT(CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION)
+    VALUES (NULL, from_id, to_id, inhalt, (SELECT SYSDATE from dual));
+END CHATNACHRICHT_BEANTWORTEN;
+/
+
 /* sequences and triggers on insert */
 DROP SEQUENCE admin_seq;
 
@@ -1308,6 +1336,7 @@ BEGIN
 END administration_on_insert;
 /
 
+/* allianz insertion */
 DROP SEQUENCE allianz_seq;
 
 CREATE SEQUENCE allianz_seq
@@ -1330,6 +1359,7 @@ BEGIN
 END allianz_on_insert;
 /
 
+/* forum insertion */
 DROP SEQUENCE forum_seq;
 
 CREATE SEQUENCE forum_seq
@@ -1352,6 +1382,7 @@ BEGIN
 END forum_on_insert;
 /
 
+/* kommentar insertion */
 DROP SEQUENCE kommentar_seq;
 
 CREATE SEQUENCE kommentar_seq
@@ -1391,6 +1422,7 @@ CREATE OR REPLACE TRIGGER foreneintrag_check_allianz_mitglied
 END chatroomnachricht_check_allianz_mitglied;
 /   
 
+/* chatroom insertion */
 DROP SEQUENCE chatroom_seq;
 
 CREATE SEQUENCE chatroom_seq
@@ -1413,6 +1445,7 @@ BEGIN
 END chatroom_on_insert;
 /
 
+/* chatroom nachricht insertion */
 DROP SEQUENCE chatroomnachricht_seq;
 
 CREATE SEQUENCE chatroomnachricht_seq
@@ -1452,6 +1485,7 @@ CREATE OR REPLACE TRIGGER chatroomnachricht_check_allianz_mitglied
 END chatroomnachricht_check_allianz_mitglied;
 /   
 
+/* chat nachricht insertion */
 DROP SEQUENCE chatnachricht_seq;
 
 CREATE SEQUENCE chatnachricht_seq
