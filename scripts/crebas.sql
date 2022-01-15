@@ -1187,6 +1187,18 @@ BEGIN
     VALUES (creator_id, new_allianz_id);
 END NEUE_ALLIANZ_ANLEGEN;
 /      
+
+CREATE OR REPLACE PROCEDURE NEUES_FORUM_ANLEGEN(
+    allianz_id IN ALLIANZ.AL_ID%TYPE,
+    forum_topic IN FORUM.FO_TOPIC%TYPE
+    )
+AS
+    new_forum_id NUMBER;
+BEGIN
+    INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC)
+    VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), forum_topic);    
+END NEUES_FORUM_ANLEGEN;
+/  
       
 /* sequences and triggers on insert */
 DROP SEQUENCE admin_seq;
@@ -1231,4 +1243,26 @@ BEGIN
       INTO :new.al_id
       FROM dual;
 END allianz_on_insert;
+/
+
+DROP SEQUENCE forum_seq;
+
+CREATE SEQUENCE forum_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER forum_on_insert
+  BEFORE INSERT 
+  ON FORUM
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.fo_id IS NULL THEN forum_seq.nextval
+            ELSE :new.fo_id 
+        END
+      INTO :new.fo_id
+      FROM dual;
+END forum_on_insert;
 /
