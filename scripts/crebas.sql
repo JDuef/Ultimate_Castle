@@ -1156,3 +1156,23 @@ alter table USER_TO_ADMIN
    add constraint FK_USER_TO__WIRD_GEFU_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID)
       ON DELETE CASCADE;
+	  
+/* sequences and triggers on insert */
+DROP SEQUENCE admin_seq;
+CREATE SEQUENCE admin_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+
+CREATE OR REPLACE TRIGGER administration_on_insert
+  BEFORE INSERT ON ADMINISTRATION
+  FOR EACH ROW
+BEGIN
+  SELECT 
+    CASE 
+        WHEN new.ad_id = null THEN admin_seq.nextval
+        ELSE new.ad_id 
+    END
+  INTO :new.ad_id
+  FROM dual;
+END;
