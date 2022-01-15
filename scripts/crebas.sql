@@ -1193,11 +1193,21 @@ CREATE OR REPLACE PROCEDURE NEUES_FORUM_ANLEGEN(
     forum_topic IN FORUM.FO_TOPIC%TYPE
     )
 AS
-    new_forum_id NUMBER;
 BEGIN
     INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC)
     VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), forum_topic);    
 END NEUES_FORUM_ANLEGEN;
+/  
+     
+CREATE OR REPLACE PROCEDURE NEUEN_CHATROOM_ANLEGEN(
+    allianz_id IN ALLIANZ.AL_ID%TYPE,
+    chatroom_topic IN CHATROOM.CR_TOPIC%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATROOM (CR_ID, AL_ID, CR_DATE_OF_CREATION, CR_TOPIC)
+    VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), chatroom_topic);    
+END NEUEN_CHATROOM_ANLEGEN;
 /  
       
 /* sequences and triggers on insert */
@@ -1265,4 +1275,26 @@ BEGIN
       INTO :new.fo_id
       FROM dual;
 END forum_on_insert;
+/
+
+DROP SEQUENCE chatroom_seq;
+
+CREATE SEQUENCE chatroom_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatroom_on_insert
+  BEFORE INSERT 
+  ON CHATROOM
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.cr_id IS NULL THEN chatroom_seq.nextval
+            ELSE :new.cr_id 
+        END
+      INTO :new.cr_id
+      FROM dual;
+END chatroom_on_insert;
 /
