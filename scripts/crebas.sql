@@ -1189,12 +1189,19 @@ CREATE OR REPLACE VIEW letzterkommentar AS
 SELECT eintrag_id, MAX(date_of_creation) AS DATE_LATEST_COMMENT
 FROM kommentarverlauf group by eintrag_id;
 
-/* Accounts, die in forum kommentieren duerfen */
+/* Accounts, die in forum eintraege verfassen duerfen */
 CREATE OR REPLACE VIEW accounts_in_forum AS
 SELECT FORUM.FO_ID, ACCOUNT.ACC_ID 
 FROM FORUM
 INNER JOIN ACCOUNT 
 ON ACCOUNT.AL_ID=FORUM.AL_ID;
+
+/* Accounts, die eintrag kommentieren duerfen */
+CREATE OR REPLACE VIEW accounts_in_foreneintrag AS
+SELECT EINTRAG.EI_ID, accounts_in_forum.ACC_ID
+FROM EINTRAG
+INNER JOIN accounts_in_forum
+ON accounts_in_forum.FO_ID=EINTRAG.FO_ID;
 
 /* Accounts, die in chatroom schreiben duerfen */
 CREATE OR REPLACE VIEW accounts_in_chatroom AS
@@ -1202,9 +1209,7 @@ SELECT CHATROOM.CR_ID, ACCOUNT.ACC_ID
 FROM CHATROOM
 INNER JOIN ACCOUNT 
 ON ACCOUNT.AL_ID=CHATROOM.AL_ID;
-
-
-      
+  
 /* procedures */
 CREATE OR REPLACE PROCEDURE NEUE_ALLIANZ_ANLEGEN(
     allianz_name IN ALLIANZ.AL_NAME%TYPE,
@@ -1266,6 +1271,18 @@ BEGIN
     INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CR_ID, CRN_DATE_OF_CREATION, CRN_INHALT)
     VALUES (NULL, sender_id, chatroom_id, (SELECT SYSDATE from dual), content);    
 END NEUE_CHATROOM_NACHRICHT;
+/
+
+CREATE OR REPLACE PROCEDURE FORENEINTRAG_KOMMENTIEREN (
+    foren_eintrag_id IN EINTRAG.EI_ID%TYPE,
+    kommentar_inhalt in KOMMENTAR.KO_INHALT%TYPE,
+    sender_id in ACCOUNT.ACC_ID%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO KOMMENTAR(KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION)
+    VALUES (NULL, foren_eintrag_id, sender_id, kommentar_inhalt, (SElECT SYSDATE from dual));
+END FORENEINTRAG_KOMMENTIEREN;
 /
 
 /* sequences and triggers on insert */
@@ -1334,6 +1351,45 @@ BEGIN
       FROM dual;
 END forum_on_insert;
 /
+
+DROP SEQUENCE kommentar_seq;
+
+CREATE SEQUENCE kommentar_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER kommentar_on_insert
+  BEFORE INSERT 
+  ON KOMMENTAR
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.ko_id IS NULL THEN kommentar_seq.nextval
+            ELSE :new.ko_id 
+        END
+      INTO :new.ko_id
+      FROM dual;
+END kommentar_on_insert;
+/
+
+/* prueft, ob sender des kommentars auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER foreneintrag_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON KOMMENTAR
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM ACCOUNTS_IN_FORENEINTRAG WHERE ACC_ID=:new.acc_id AND EI_ID=:new.ei_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz Foreneintrags');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
 
 DROP SEQUENCE chatroom_seq;
 
