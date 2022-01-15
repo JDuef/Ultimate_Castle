@@ -1157,22 +1157,78 @@ alter table USER_TO_ADMIN
       references ACCOUNT (ACC_ID)
       ON DELETE CASCADE;
 	  
+
+      
+/* procedures */
+CREATE OR REPLACE PROCEDURE NEUE_ALLIANZ_ANLEGEN(
+    allianz_name IN ALLIANZ.AL_NAME%TYPE,
+    allianz_beschreibung IN ALLIANZ.AL_BESCHREIBUNG%TYPE,
+    creator_id IN ACCOUNT.ACC_ID%TYPE
+    )
+AS
+    new_administration_id NUMBER;
+    new_allianz_id NUMBER;
+BEGIN
+    INSERT INTO ADMINISTRATION (AD_ID)
+    VALUES (NULL);    
+    
+    SELECT MAX(AD_ID) INTO new_administration_id FROM ADMINISTRATION;
+    
+    INSERT INTO ALLIANZ (AL_ID, AD_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION)
+    VALUES (NULL, new_administration_id, allianz_name, allianz_beschreibung, (SELECT SYSDATE from dual));
+    
+    SELECT MAX(AL_ID) INTO new_allianz_id FROM ALLIANZ;
+    
+    UPDATE ADMINISTRATION
+    SET AL_ID = new_allianz_id   
+    WHERE AD_ID = new_administration_id;
+    
+    INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID)
+    VALUES (creator_id, new_allianz_id);
+END NEUE_ALLIANZ_ANLEGEN;
+/      
+      
 /* sequences and triggers on insert */
 DROP SEQUENCE admin_seq;
+
 CREATE SEQUENCE admin_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;
-
+    
 CREATE OR REPLACE TRIGGER administration_on_insert
-  BEFORE INSERT ON ADMINISTRATION
+  BEFORE INSERT 
+  ON ADMINISTRATION
   FOR EACH ROW
 BEGIN
-  SELECT 
-    CASE 
-        WHEN new.ad_id = null THEN admin_seq.nextval
-        ELSE new.ad_id 
-    END
-  INTO :new.ad_id
-  FROM dual;
-END;
+      SELECT 
+        CASE 
+            WHEN :new.ad_id IS NULL THEN admin_seq.nextval
+            ELSE :new.ad_id 
+        END
+      INTO :new.ad_id
+      FROM dual;
+END administration_on_insert;
+/
+
+DROP SEQUENCE allianz_seq;
+
+CREATE SEQUENCE allianz_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER allianz_on_insert
+  BEFORE INSERT 
+  ON ALLIANZ
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.al_id IS NULL THEN allianz_seq.nextval
+            ELSE :new.al_id 
+        END
+      INTO :new.al_id
+      FROM dual;
+END allianz_on_insert;
+/
