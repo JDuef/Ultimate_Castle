@@ -1217,7 +1217,11 @@ CHATNACHRICHT
 ORDER BY ACC_ID;
 /
 
-create type message_relation is object (ACC_ID number, ACC_ACC_ID number);
+drop type message_relation_table;
+/
+drop type message_relation 
+/
+create type message_relation is object (FROM_ID number, TO_ID number);
 /
 create type message_relation_table is table of message_relation;
 /
@@ -1271,7 +1275,51 @@ BEGIN
 END F_GET_MESSAGES_INVOLVING;
 /
 
-SELECT * FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(1) from dual);
+/*SELECT FROM_ID, TO_ID FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(1) from dual);*/
+
+drop type last_message_table;
+/
+drop type last_message
+/
+create type last_message is object (FROM_USERNAME VARCHAR(100), INHALT CLOB, DATE_OF_CREATION TIMESTAMP);
+/
+create type last_message_table is table of last_message;
+/
+
+CREATE OR REPLACE FUNCTION F_GET_LAST_MESSAGES(
+    receiver_id IN NUMBER
+)
+    return last_message_table
+IS
+    ret_val last_message_table := last_message_table();
+    n integer := 0;
+BEGIN 
+    for r in(
+        SELECT ac.ACC_USERNAME, b.CN_ID, b.CN_INHALT, b.CN_DATE_OF_CREATION 
+            FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(receiver_id) from dual)
+            INNER JOIN 
+            CHATNACHRICHT b ON 
+                (b.ACC_ID=FROM_ID AND b.ACC_ACC_ID=TO_ID) OR (b.ACC_ACC_ID=FROM_ID AND b.ACC_ID=TO_ID)
+            INNER JOIN ACCOUNT ac ON
+                ac.ACC_ID= 
+                CASE 
+                    WHEN b.ACC_ID=receiver_id THEN b.ACC_ACC_ID
+                    ELSE b.ACC_ID
+                END   
+            WHERE 
+                b.CN_DATE_OF_CREATION = (SELECT MAX(CN_DATE_OF_CREATION) FROM CHATNACHRICHT a WHERE (a.ACC_ID=b.ACC_ID AND a.ACC_ACC_ID=b.ACC_ACC_ID) OR (a.ACC_ID=b.ACC_ACC_ID AND a.ACC_ACC_ID=b.ACC_ID))
+            ORDER BY b.CN_DATE_OF_CREATION DESC)
+    loop
+        ret_val.extend;
+        n := n+1;
+        ret_val(n) := last_message(r.ACC_USERNAME, r.CN_INHALT, r.CN_DATE_OF_CREATION);
+    end loop;
+    return(ret_val);
+END F_GET_LAST_MESSAGES;
+/
+
+
+SELECT * FROM table (SELECT F_GET_LAST_MESSAGES(1) from dual);
 
 /* for test */
 /*SELECT * 
