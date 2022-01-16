@@ -1584,11 +1584,11 @@ insert into EINHEIT_ATTRIBUT
 values(10, 10, 5);
 
 insert into ATTRIBUTE
-values (1, 1, 'Angriff', 'Schwertschaden');
+values (1, 1, 'Angriff', 'Bogenschaden');
 insert into ATTRIBUTE
 values (2, 2, 'Angriff', 'Axtschaden');
 insert into ATTRIBUTE
-values (3, 3, 'Angriff', 'Bogenschaden');
+values (3, 3, 'Angriff', 'Schwertschaden');
 insert into ATTRIBUTE
 values (4, 4, 'Angriff', 'Speerschaden');
 insert into ATTRIBUTE
