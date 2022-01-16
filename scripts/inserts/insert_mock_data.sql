@@ -1475,3 +1475,151 @@ Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('41','42');
 Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','19');
 Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','20');
 Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','35');
+
+insert into EINHEIT
+values (1, 1, 1, 'Leichter Bogenschuetze', 'Bogenschuetze', 'Holz', 120);
+insert into EINHEIT
+values (2, 2, 7, 'Leichter Axtkaempfer', 'Axtkaempfer', 'Eisen', 100);
+insert into EINHEIT
+values (3, 3, 13, 'leichter Schwerterkaempfer', 'Schwertkaempfer', 'Eisen', 150);
+insert into EINHEIT
+values (4, 4, 19, 'Neuling des Speeres', 'Speertraeger', 'Holz', 100);
+insert into EINHEIT
+values (5, 5, 25, 'Meister der Schwertkunst', 'Schwertkaempfer', 'Eisen', 450);
+insert into EINHEIT
+values (6, 6, 31, 'Berittener Kaempfer', 'Reiter', 'Eisen', 600);
+insert into EINHEIT
+values (7, 7, 37, 'Schwerer Speerkaempfer', 'Speertraeger','Holz', 500);
+insert into EINHEIT
+values (8, 8, 42, 'Schwerer Reiter', 'Reiter', 'Eisen', 1000);
+insert into EINHEIT
+values (9, 9, 19, 'Großmeister des Schwertes', 'Schwertkaempfer', 'Eisen', 1100);
+insert into EINHEIT
+values (10, 10, 12, 'Gimli', 'Axtkaempfer', 'Eisen', 15000);
+
+insert into EINHEIT_GRUPPE
+values (1, 83);
+insert into EINHEIT_GRUPPE
+values (2, 253);
+insert into EINHEIT_GRUPPE
+values (3, 27);
+insert into EINHEIT_GRUPPE
+values (4, 246);
+insert into EINHEIT_GRUPPE
+values (5, 202);
+insert into EINHEIT_GRUPPE
+values (6, 70);
+insert into EINHEIT_GRUPPE
+values (7, 113);
+insert into EINHEIT_GRUPPE
+values (8, 188);
+insert into EINHEIT_GRUPPE
+values (9, 296);
+insert into EINHEIT_GRUPPE
+values (10, 261);
+
+insert into GRUPPE
+values (1, 1);
+insert into GRUPPE
+values (2, 2);
+insert into GRUPPE
+values (3, 3);
+insert into GRUPPE
+values (4, 4);
+insert into GRUPPE
+values (5, 5);
+insert into GRUPPE
+values (6, 6);
+insert into GRUPPE
+values (7, 7);
+insert into GRUPPE
+values (8, 8);
+insert into GRUPPE
+values (9, 9);
+insert into GRUPPE
+values (10, 10);
+
+
+insert into ANGRIFF 
+values (1, 1, 1, 1, '4.01.2022 12:33', 'Gewonnen');
+insert into ANGRIFF 
+values (2, 2, 2, 2, '19.12.2021 13:09', 'Verloren');
+insert into ANGRIFF 
+values (3, 3, 3, 3, '24.12.2021 19:13', 'Verloren');
+insert into ANGRIFF
+values (4, 4, 4, 4, '01.01.2022 00:01', 'Gewonnen');
+insert into ANGRIFF
+values (5, 5, 5, 5, '10.12.2021 10:10', 'Geplant');
+insert into ANGRIFF 
+values (6, 6, 6, 6, '09.01.2022 23:12', 'Gewonnen');
+insert into ANGRIFF 
+values (7, 7, 7, 7, '15.01.2022 14:53', 'Verloren');
+insert into ANGRIFF 
+values (8, 8, 8, 8, '01.11.2021 09:30', 'Gewonnen');
+insert into ANGRIFF 
+values (9, 9, 9, 9, '04.01.2022 21:22', 'Gewonnen');
+insert into ANGRIFF 
+values (10, 10, 10, 10, '18.09.2021 18:09', 'Gewonnen');
+
+
+insert into EINHEIT_ATTRIBUT
+values(1, 1, 5);
+insert into EINHEIT_ATTRIBUT
+values(2, 2, 1);
+insert into EINHEIT_ATTRIBUT
+values(3, 3, 1);
+insert into EINHEIT_ATTRIBUT
+values(4, 4, 6);
+insert into EINHEIT_ATTRIBUT
+values(5, 5, 10);
+insert into EINHEIT_ATTRIBUT
+values(6, 6, 1);
+insert into EINHEIT_ATTRIBUT
+values(7, 7, 5);
+insert into EINHEIT_ATTRIBUT
+values(8, 8, 1);
+insert into EINHEIT_ATTRIBUT
+values(9, 9, 1);
+insert into EINHEIT_ATTRIBUT
+values(10, 10, 5);
+
+insert into ATTRIBUTE
+values (1, 1, 'Angriff', 'Schwertschaden');
+insert into ATTRIBUTE
+values (2, 2, 'Angriff', 'Axtschaden');
+insert into ATTRIBUTE
+values (3, 3, 'Angriff', 'Bogenschaden');
+insert into ATTRIBUTE
+values (4, 4, 'Angriff', 'Speerschaden');
+insert into ATTRIBUTE
+values (5, 5, 'Verteidigung', 'Verteidigungswert');
+insert into ATTRIBUTE
+values (6, 6, 'Bewegungsgeschwindigkeit', 'Bewegungsgeschwindigkeit');
+
+
+/* 
+   Eisen = 1 
+   Lehm = 2 
+   Holz = 3
+*/   
+
+insert into KRIEGSBEUTE
+values (478, 1, 212, 3);
+insert into KRIEGSBEUTE
+values (561, 2, 154, 1);
+insert into KRIEGSBEUTE
+values (702, 3, 787, 2);
+insert into KRIEGSBEUTE
+values (203, 4, 272, 3);
+insert into KRIEGSBEUTE
+values (604, 5, 365, 1);
+insert into KRIEGSBEUTE
+values (547, 6, 952, 1);
+insert into KRIEGSBEUTE
+values (947, 7, 669, 1);
+insert into KRIEGSBEUTE
+values (809, 8, 454, 2);
+insert into KRIEGSBEUTE
+values (204, 9, 216, 1);
+insert into KRIEGSBEUTE
+values (369, 10, 770, 2);
