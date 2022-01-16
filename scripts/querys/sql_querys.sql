@@ -289,7 +289,16 @@ SELECT * FROM koenigreich
 WHERE acc_id = 2;
 
 /* Alle Koenigreiche von Account mit Anzahl an Burgen pro Königreich */
+DROP VIEW alleKoenigreiche;
 
+CREATE VIEW alleKoenigreiche AS
+SELECT acc_id, koe_wappen, koe_ruhm, welt_id, (
+    SELECT COUNT(*) FROM BURG
+    WHERE burg.koe_id = koenigreich.koe_id) AS Anzahl_Burgen 
+FROM koenigreich;    
+
+SELECT * FROM alleKoenigreiche
+WHERE acc_id = 10;
 
 /* zeige alle Gebäude in einer Burg */
 DROP VIEW GebaeudeInBurg;
@@ -344,14 +353,18 @@ WHERE acc.acc_username = 'tnorridge0';
 
 /* Alle Königreiche sortiert nach Ruhm auf einer Welt */
 SELECT * FROM koenigreich
+WHERE welt_id = [weltId]
 ORDER BY koe_ruhm DESC; 
+
+SELECT * FROM koenigreich
+WHERE welt_id = 2
+ORDER BY koe_ruhm DESC;
 
 /* Beginnen auf einer Welt (Erstellen Königreich, Erstellen einer Burg) */
 Insert into KOENIGREICH (KOE_WAPPEN,KOE_RUHM,KOE_ID,WELT_ID,ACC_ID) 
 values ('1','0','36','3','4');
 
-/* Schauen ob koordinaten bereits besetzt sind? */
-
+/* Hinzufügen einer neuen Burg*/
 INSERT INTO BURG (BU_ID, KOE_ID, BU_BURGNAME, BU_LEHM, BU_EISEN, BU_HOLZ, BU_POSITION_X, BU_POSITION_Y) 
 VALUES (71, 36, 'asda212', 0, 0, 0, 1, 1);
 
@@ -363,3 +376,4 @@ Values (71, 6);
 UPDATE burg 
 SET koe_id = 4
 WHERE bu_id = 20;
+
