@@ -405,7 +405,7 @@ create index ANGREIFER_BURG_FK on ANGRIFF (
 create table ATTRIBUTE (
    ATTRIBUT_ID          INTEGER               not null,
    EINHEIT_ATTRIBU_ID   INTEGER,
-   ATTRIBUT_TYP         VARCHAR2(20)          not null
+   ATTRIBUT_TYP         VARCHAR2(50)          not null
       constraint CKC_ATTRIBUT_TYP_ATTRIBUT check (ATTRIBUT_TYP in ('Angriff','Verteidigung','Bewegungsgeschwindigkeit')),
    ATTRIBUT_BEZEICHNUNG VARCHAR2(50)          not null,
    constraint PK_ATTRIBUTE primary key (ATTRIBUT_ID)
