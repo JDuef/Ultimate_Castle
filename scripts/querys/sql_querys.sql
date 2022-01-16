@@ -201,7 +201,7 @@ INNER JOIN (
     FROM GEBOT
     GROUP BY auk_id) g ON g.auk_id = a.auk_id
 INNER JOIN ITEM i ON i.item_id = a.item_id
-WHERE a.auk_end_datum < CURRENT_TIMESTAMP;
+WHERE a.auk_end_datum > CURRENT_TIMESTAMP;
 
 SELECT *
 FROM AuktionSuche
