@@ -187,3 +187,68 @@ WHERE item_id = [id des items] AND acc_id = [id des accounts];
 
 DELETE FROM ACCOUNT_TO_ITEM
 WHERE item_id = 2 AND acc_id = 1;
+
+/* soziales */
+
+/* Alle geschriebenen Nachrichten (Chatroom-Nachrichten & Forenkommentare) eines Nutzers anzeigen*/
+CREATE OR REPLACE VIEW nachrichtenuebersicht AS
+SELECT acc_id, content, date_of_creation, nachrichtentyp FROM 
+    (SELECT acc_id, ko_inhalt AS content, ko_date_of_creation AS date_of_creation, 'Kommentar' AS NACHRICHTENTYP
+        FROM KOMMENTAR
+    UNION ALL   
+    SELECT acc_id, cn_inhalt AS content, cn_date_of_creation AS date_of_creation, 'Chatnachricht' AS NACHRICHTENTYP
+        FROM CHATNACHRICHT)
+        ;
+
+/* Beispielaufruf: */
+
+SELECT * FROM nachrichtenuebersicht
+WHERE acc_id=12
+ORDER BY date_of_creation;
+
+/* Alle Kommentare eines Foreneintrages zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+
+CREATE OR REPLACE VIEW kommentarverlauf AS
+SELECT ACCOUNT.acc_username AS username, KOMMENTAR.ko_inhalt as content, 
+KOMMENTAR.ko_date_of_creation as date_of_creation, KOMMENTAR.ei_id as eintrag_id
+FROM KOMMENTAR
+INNER JOIN ACCOUNT 
+ON account.acc_id=kommentar.acc_id;
+
+/* Beispielaufruf */
+
+SELECT username, content, date_of_creation 
+FROM kommentarverlauf
+WHERE eintrag_id=2
+ORDER BY date_of_creation;
+
+/* Alle chatraum nachrichten zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+
+CREATE OR REPLACE VIEW chatraumverlauf AS
+SELECT ACCOUNT.acc_username AS username, CHATROOM_NACHRICHT.crn_inhalt as content, CHATROOM_NACHRICHT.CRN_DATE_OF_CREATION as date_of_creation, CHATROOM_NACHRICHT.cr_id as chatroom_id
+FROM CHATROOM_NACHRICHT
+INNER JOIN ACCOUNT 
+ON account.acc_id=CHATROOM_NACHRICHT.acc_id;
+
+/* Beispielaufruf */
+
+SELECT username, content, date_of_creation 
+FROM chatraumverlauf
+WHERE chatroom_id=2
+ORDER BY date_of_creation;
+
+/* Foreneintraege, deren letzter Kommentar aelter als angegebene Zeit ist */
+CREATE OR REPLACE VIEW letzterkommentar AS 
+SELECT eintrag_id, MAX(date_of_creation) AS DATE_LATEST_COMMENT
+FROM kommentarverlauf group by eintrag_id;
+
+SELECT EINTRAG_ID, date_latest_comment, (select extract(day from ((SELECT SYSDATE from dual) - date_latest_comment)) from dual) AS AGE_IN_DAYS
+FROM letzterkommentar 
+WHERE (select extract(day from ((SELECT SYSDATE from dual) - date_latest_comment)) from dual) > 60;
+
+/* Chatverlauf mit user anzeigen */
+SELECT a.ACC_USERNAME, cn.cn_inhalt, cn.cn_date_of_creation 
+FROM CHATNACHRICHT cn 
+INNER JOIN ACCOUNT a ON cn.ACC_ID=a.ACC_ID
+WHERE (cn.ACC_ID=1 AND cn.ACC_ACC_ID=2) OR (cn.ACC_ACC_ID=1 AND cn.ACC_ID=2)
+ORDER BY cn.CN_DATE_OF_CREATION;
