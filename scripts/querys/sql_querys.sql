@@ -290,3 +290,89 @@ FROM CHATNACHRICHT cn
 INNER JOIN ACCOUNT a ON cn.ACC_ID=a.ACC_ID
 WHERE (cn.ACC_ID=1 AND cn.ACC_ACC_ID=2) OR (cn.ACC_ACC_ID=1 AND cn.ACC_ID=2)
 ORDER BY cn.CN_DATE_OF_CREATION;
+
+/* Burgen und Gebäude*/
+
+/* Alle Burgen in einem Königreich */
+SELECT BU_BURGNAME, BU_LEHM, BU_EISEN, bu_holz FROM BURG
+WHERE koe_id = 3;
+
+/* Alle Koenigreiche von Account */
+SELECT * FROM koenigreich 
+WHERE acc_id = 2;
+
+/* Alle Koenigreiche von Account mit Anzahl an Burgen pro Königreich */
+
+
+/* zeige alle Gebäude in einer Burg */
+DROP VIEW GebaeudeInBurg;
+
+CREATE VIEW GebaeudeInBurg AS
+SELECT brg.bu_id, brg.bu_burgname, gb.geb_typ, gb.geb_level FROM burg_to_gebaeude 
+INNER JOIN gebaeude gb ON burg_to_gebaeude.geb_id = gb.geb_id 
+INNER JOIN burg brg on burg_to_gebaeude.bu_id=brg.bu_id;
+
+SELECT * 
+FROM GebaeudeInBurg
+WHERE bu_id = [burgId];
+
+SELECT * 
+FROM GebaeudeInBurg
+WHERE bu_id = 3;
+
+/* wie teuer und wie lange dauert das nächste upgraden? */
+DROP VIEW naechstesGebUpgrade;
+
+CREATE VIEW naechstesGebUpgrade AS
+SELECT gb.geb_typ, gb.geb_level, ge.ge_eigenschaft, ge.ge_wert FROM geb_to_gebeig
+INNER JOIN gebaeude gb ON geb_to_gebeig.geb_id = gb.geb_id
+INNER JOIN gebaeude_eigenschaft ge ON geb_to_gebeig.ge_id = ge.ge_id;
+
+SELECT *
+FROM naechstesGebUpgrade
+WHERE geb_level = [gebLvl] AND geb_typ = [geb_typ];
+
+SELECT *
+FROM naechstesGebUpgrade
+WHERE geb_level = 4 AND geb_typ = 'Eisenmine';
+
+SELECT *
+FROM naechstesGebUpgrade
+WHERE geb_level = 4 AND geb_typ = 'Eisenmine';
+
+SELECT *
+FROM naechstesGebUpgrade
+WHERE geb_level = 4 AND geb_typ = 'Eisenmine' AND ge_eigenschaft = 'Kosten';
+
+/* Alle Spieleracc auf einer Welt */
+SELECT koenigreich.koe_wappen, koenigreich.koe_ruhm, koenigreich.welt_id, acc.acc_username FROM koenigreich
+INNER JOIN account acc ON acc.acc_id = koenigreich.acc_id
+WHERE koenigreich.welt_id = 3;
+
+/* Alle Burgen eines Spielers */ 
+SELECT acc.acc_username, kr.koe_wappen, burg.bu_burgname, burg.bu_position_x, burg.bu_position_y FROM BURG
+INNER JOIN koenigreich kr ON kr.koe_id = burg.koe_id
+INNER JOIN account acc ON acc.acc_id = kr.acc_id
+WHERE acc.acc_username = 'tnorridge0';
+
+/* Alle Königreiche sortiert nach Ruhm auf einer Welt */
+SELECT * FROM koenigreich
+ORDER BY koe_ruhm DESC; 
+
+/* Beginnen auf einer Welt (Erstellen Königreich, Erstellen einer Burg) */
+Insert into KOENIGREICH (KOE_WAPPEN,KOE_RUHM,KOE_ID,WELT_ID,ACC_ID) 
+values ('1','0','36','3','4');
+
+/* Schauen ob koordinaten bereits besetzt sind? */
+
+INSERT INTO BURG (BU_ID, KOE_ID, BU_BURGNAME, BU_LEHM, BU_EISEN, BU_HOLZ, BU_POSITION_X, BU_POSITION_Y) 
+VALUES (71, 36, 'asda212', 0, 0, 0, 1, 1);
+
+/* Verknüpfen von Rathaus lvl1*/
+Insert into burg_to_gebaeude (bu_id, geb_id)
+Values (71, 6);
+
+/* Updaten von Königreichsid von Burg (Übernahme) */
+UPDATE burg 
+SET koe_id = 4
+WHERE bu_id = 20;
