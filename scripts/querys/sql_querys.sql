@@ -246,4 +246,9 @@ SELECT EINTRAG_ID, date_latest_comment, (select extract(day from ((SELECT SYSDAT
 FROM letzterkommentar 
 WHERE (select extract(day from ((SELECT SYSDATE from dual) - date_latest_comment)) from dual) > 60;
 
-
+/* Chatverlauf mit user anzeigen */
+SELECT a.ACC_USERNAME, cn.cn_inhalt, cn.cn_date_of_creation 
+FROM CHATNACHRICHT cn 
+INNER JOIN ACCOUNT a ON cn.ACC_ID=a.ACC_ID
+WHERE (cn.ACC_ID=1 AND cn.ACC_ACC_ID=2) OR (cn.ACC_ACC_ID=1 AND cn.ACC_ID=2)
+ORDER BY cn.CN_DATE_OF_CREATION;

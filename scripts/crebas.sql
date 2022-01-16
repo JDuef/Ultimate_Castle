@@ -1210,7 +1210,7 @@ FROM CHATROOM
 INNER JOIN ACCOUNT 
 ON ACCOUNT.AL_ID=CHATROOM.AL_ID;
 
-/* TODO: Nutzer anzeigen, mit denen Nachrichten-Verlaeufe bestehen */
+/* Zuordnung der Nutzer, zwischen denen chat-beziehungen bestehen */
 CREATE OR REPLACE VIEW chat_beziehungen AS
 SELECT DISTINCT ACC_ID, ACC_ACC_ID FROM 
 CHATNACHRICHT
@@ -1318,14 +1318,7 @@ BEGIN
 END F_GET_LAST_MESSAGES;
 /
 
-
 SELECT * FROM table (SELECT F_GET_LAST_MESSAGES(1) from dual);
-
-/* for test */
-/*SELECT * 
-    FROM CHATNACHRICHT
-    WHERE (ACC_ID=1 AND ACC_ACC_ID=2) OR (ACC_ID=2 AND ACC_ACC_ID=1)
-    ORDER BY CHATNACHRICHT.CN_DATE_OF_CREATION;*/
   
 /* procedures */
 CREATE OR REPLACE PROCEDURE NEUE_ALLIANZ_ANLEGEN(
@@ -1388,6 +1381,19 @@ BEGIN
     INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CR_ID, CRN_DATE_OF_CREATION, CRN_INHALT)
     VALUES (NULL, sender_id, chatroom_id, (SELECT SYSDATE from dual), content);    
 END NEUE_CHATROOM_NACHRICHT;
+/
+
+CREATE OR REPLACE PROCEDURE NEUEN_FORENEINTRAG_ERSTELLEN(
+    forum_id IN FORUM.FO_ID%TYPE,
+    sender_id IN ACCOUNT.ACC_ID%TYPE,
+    titel IN EINTRAG.EI_TITEL%TYPE,
+    content IN EINTRAG.EI_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO EINTRAG (EI_ID, ACC_ID, FO_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION)
+    VALUES (NULL, sender_id, forum_id, titel, inhalt, (SELECT SYSDATE from dual));    
+END  NEUEN_FORENEINTRAG_ERSTELLEN;
 /
 
 CREATE OR REPLACE PROCEDURE FORENEINTRAG_KOMMENTIEREN (
@@ -1500,6 +1506,46 @@ END forum_on_insert;
 /
 
 /* kommentar insertion */
+DROP SEQUENCE eintrag_seq;
+
+CREATE SEQUENCE eintrag_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER eintrag_on_insert
+  BEFORE INSERT 
+  ON EINTRAG
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.ei_id IS NULL THEN eintrag_seq.nextval
+            ELSE :new.ei_id 
+        END
+      INTO :new.ei_id
+      FROM dual;
+END kommentar_on_insert;
+/
+
+/* prueft, ob sender des kommentars auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER eintrag_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON EINTRAG
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM accounts_in_forum WHERE ACC_ID=:new.acc_id AND FO_ID=:new.fo_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Forums');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
+
+/* kommentar insertion */
 DROP SEQUENCE kommentar_seq;
 
 CREATE SEQUENCE kommentar_seq
@@ -1523,7 +1569,7 @@ END kommentar_on_insert;
 /
 
 /* prueft, ob sender des kommentars auch mitglied der allianz ist */
-CREATE OR REPLACE TRIGGER foreneintrag_check_allianz_mitglied
+CREATE OR REPLACE TRIGGER kommentar_check_allianz_mitglied
     BEFORE INSERT OR UPDATE 
     ON KOMMENTAR
     FOR EACH ROW
@@ -1533,7 +1579,7 @@ CREATE OR REPLACE TRIGGER foreneintrag_check_allianz_mitglied
     BEGIN
       SELECT COUNT(ACC_ID) INTO result FROM ACCOUNTS_IN_FORENEINTRAG WHERE ACC_ID=:new.acc_id AND EI_ID=:new.ei_id;
         IF result = 0 THEN
-        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz Foreneintrags');
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Foreneintrags');
       END IF;
     END;
 END chatroomnachricht_check_allianz_mitglied;
