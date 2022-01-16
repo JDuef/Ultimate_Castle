@@ -49,7 +49,7 @@ FROM AUKTION
 WHERE CURRENT_TIMESTAMP <= auk_end_datum;
 /* Beispielaufruf: */
 SELECT *
-FROM Laufende_Auktionen
+FROM Laufende_Auktionen;
 
 /* alle abgelaufenden auktionen zurückgeben */
 /*
@@ -64,10 +64,9 @@ FROM AUKTION
 WHERE CURRENT_TIMESTAMP >= auk_end_datum;
 /* Beispielaufruf: */
 SELECT *
-FROM Abgelaufene_Auktionen
+FROM Abgelaufene_Auktionen;
 
-/* alle auktionen zurückgeben welche von einem bestimmten account erstellt wurden */
-/* VIELLEICHT NOCH JOIN MIT DEM HÖCHSTEN GEBOT MACHEN */
+/* alle auktionen + das maximale Gebot zurückgeben welche von einem bestimmten account erstellt wurden */
 /*
 Anforderung:
 Alle auktionen sollen zurückgegeben werden welche von einem bestimmtem Account erstellt wurden um diese in einer "meine Auktionen" Übersicht anzuzeigen. 
@@ -194,18 +193,6 @@ WHERE item_id = 2 AND acc_id = 1;
 
 
 /* AUKTION NACH ITEM ODER ATTRIBUT SUCHEN , MIN MAX WERT */
-SELECT * 
-FROM AUKTION
-INNER JOIN ITEM ON ITEM.item_id = AUKTION.item_id
-WHERE item_name LIKE (%[suchbegriff]%);
-
-
-SELECT * 
-FROM AUKTION
-INNER JOIN ITEM ON ITEM.item_id = AUKTION.item_id
-WHERE item_name LIKE (%booster%);
-
-
 CREATE VIEW AuktionSuche AS
 SELECT a.auk_id, a.item_id, i.item_name, a.auk_start_datum, a.auk_end_datum, g.max_gebot
 FROM AUKTION a
