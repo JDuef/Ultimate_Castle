@@ -18,7 +18,7 @@ SET al_id = [Allianz ID]
 WHERE acc_id = [Account ID];
 
 /* account loeschen */
-/* on delete cascade? */
+/* on delete cascade */
 DELETE FROM ACCOUNT
 WHERE acc_id = [Account ID];
 
