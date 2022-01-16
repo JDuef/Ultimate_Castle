@@ -1209,6 +1209,75 @@ SELECT CHATROOM.CR_ID, ACCOUNT.ACC_ID
 FROM CHATROOM
 INNER JOIN ACCOUNT 
 ON ACCOUNT.AL_ID=CHATROOM.AL_ID;
+
+/* TODO: Nutzer anzeigen, mit denen Nachrichten-Verlaeufe bestehen */
+CREATE OR REPLACE VIEW chat_beziehungen AS
+SELECT DISTINCT ACC_ID, ACC_ACC_ID FROM 
+CHATNACHRICHT
+ORDER BY ACC_ID;
+/
+
+create type message_relation is object (ACC_ID number, ACC_ACC_ID number);
+/
+create type message_relation_table is table of message_relation;
+/
+
+/* 
+findet alle chatbeziehungen, an denen receiver_id beteiligt ist. filtert
+duplikate, sodasss keine doppelten Beziehungen nach der Form
+ACC_ID | ACC_ACC_ID
+-------------------
+1      | 2
+2      | 1
+enthalten sind.
+*/
+CREATE OR REPLACE FUNCTION F_GET_MESSAGES_INVOLVING(
+    receiver_id IN NUMBER
+)
+    return message_relation_table
+IS
+    ret_val message_relation_table := message_relation_table();
+    n integer := 0;
+BEGIN 
+    for r in(
+        SELECT DISTINCT ACC_ID, ACC_ACC_ID
+        FROM (
+            SELECT ACC_ID, ACC_ACC_ID FROM chat_beziehungen
+            WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+        )
+        WHERE (ACC_ID, ACC_ACC_ID) NOT IN (
+            SELECT ACC_ID, ACC_ACC_ID
+            FROM (
+                SELECT ACC_ID, ACC_ACC_ID
+                FROM (
+                    /* alle chatbeziehungen auswaehlen, an denen receiver_id beteiligt ist*/
+                    SELECT ACC_ID, ACC_ACC_ID FROM chat_beziehungen
+                    WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+                )
+                /* alle chatbeziehungen auswaehlen, bei denen ACC_ID der Empfaenger ist */
+                WHERE ACC_ID IN (
+                    SELECT ACC_ACC_ID FROM chat_beziehungen
+                    WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+                ))
+                WHERE ACC_ID!=receiver_id
+                ))
+    loop
+        ret_val.extend;
+        n := n+1;
+        ret_val(n) := message_relation(r.ACC_ID, r.ACC_ACC_ID);
+    end loop;
+    return(ret_val);
+    
+END F_GET_MESSAGES_INVOLVING;
+/
+
+SELECT * FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(1) from dual);
+
+/* for test */
+/*SELECT * 
+    FROM CHATNACHRICHT
+    WHERE (ACC_ID=1 AND ACC_ACC_ID=2) OR (ACC_ID=2 AND ACC_ACC_ID=1)
+    ORDER BY CHATNACHRICHT.CN_DATE_OF_CREATION;*/
   
 /* procedures */
 CREATE OR REPLACE PROCEDURE NEUE_ALLIANZ_ANLEGEN(
@@ -1309,7 +1378,7 @@ BEGIN
     SELECT (ACC_ID) INTO to_id FROM CHATNACHRICHT WHERE CN_ID=nachricht_id;
     
     INSERT INTO CHATNACHRICHT(CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION)
-    VALUES (NULL, from_id, to_id, inhalt, (SELECT SYSDATE from dual));
+    VALUES (NULL, from_id, to_id, antwort_text, (SELECT SYSDATE from dual));
 END CHATNACHRICHT_BEANTWORTEN;
 /
 
