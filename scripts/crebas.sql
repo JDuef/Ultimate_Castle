@@ -1156,3 +1156,517 @@ alter table USER_TO_ADMIN
    add constraint FK_USER_TO__WIRD_GEFU_ACCOUNT foreign key (ACC_ID)
       references ACCOUNT (ACC_ID)
       ON DELETE CASCADE;
+	  
+/* views */
+      
+/* Alle geschriebenen Nachrichten (Chatroom-Nachrichten & Forenkommentare) eines Nutzers anzeigen*/
+CREATE OR REPLACE VIEW nachrichtenuebersicht AS
+SELECT acc_id, content, date_of_creation, nachrichtentyp FROM 
+    (SELECT acc_id, ko_inhalt AS content, ko_date_of_creation AS date_of_creation, 'Kommentar' AS NACHRICHTENTYP
+        FROM KOMMENTAR
+    UNION ALL   
+    SELECT acc_id, cn_inhalt AS content, cn_date_of_creation AS date_of_creation, 'Chatnachricht' AS NACHRICHTENTYP
+        FROM CHATNACHRICHT)
+        ;
+        
+/* Alle Kommentare eines Foreneintrages zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+CREATE OR REPLACE VIEW kommentarverlauf AS
+SELECT ACCOUNT.acc_username AS username, KOMMENTAR.ko_inhalt as content, 
+KOMMENTAR.ko_date_of_creation as date_of_creation, KOMMENTAR.ei_id as eintrag_id
+FROM KOMMENTAR
+INNER JOIN ACCOUNT 
+ON account.acc_id=kommentar.acc_id;
+
+/* Alle chatraum nachrichten zeitlich geordnet mit Nutzernamen des Absenders anzeigen */
+CREATE OR REPLACE VIEW chatraumverlauf AS
+SELECT ACCOUNT.acc_username AS username, CHATROOM_NACHRICHT.crn_inhalt as content, CHATROOM_NACHRICHT.CRN_DATE_OF_CREATION as date_of_creation, CHATROOM_NACHRICHT.cr_id as chatroom_id
+FROM CHATROOM_NACHRICHT
+INNER JOIN ACCOUNT 
+ON account.acc_id=CHATROOM_NACHRICHT.acc_id;
+
+/* Foreneintraege, deren letzter Kommentar aelter als angegebene Zeit ist */
+CREATE OR REPLACE VIEW letzterkommentar AS 
+SELECT eintrag_id, MAX(date_of_creation) AS DATE_LATEST_COMMENT
+FROM kommentarverlauf group by eintrag_id;
+
+/* Accounts, die in forum eintraege verfassen duerfen */
+CREATE OR REPLACE VIEW accounts_in_forum AS
+SELECT FORUM.FO_ID, ACCOUNT.ACC_ID 
+FROM FORUM
+INNER JOIN ACCOUNT 
+ON ACCOUNT.AL_ID=FORUM.AL_ID;
+
+/* Accounts, die eintrag kommentieren duerfen */
+CREATE OR REPLACE VIEW accounts_in_foreneintrag AS
+SELECT EINTRAG.EI_ID, accounts_in_forum.ACC_ID
+FROM EINTRAG
+INNER JOIN accounts_in_forum
+ON accounts_in_forum.FO_ID=EINTRAG.FO_ID;
+
+/* Accounts, die in chatroom schreiben duerfen */
+CREATE OR REPLACE VIEW accounts_in_chatroom AS
+SELECT CHATROOM.CR_ID, ACCOUNT.ACC_ID 
+FROM CHATROOM
+INNER JOIN ACCOUNT 
+ON ACCOUNT.AL_ID=CHATROOM.AL_ID;
+
+/* Zuordnung der Nutzer, zwischen denen chat-beziehungen bestehen */
+CREATE OR REPLACE VIEW chat_beziehungen AS
+SELECT DISTINCT ACC_ID, ACC_ACC_ID FROM 
+CHATNACHRICHT
+ORDER BY ACC_ID;
+/
+
+drop type message_relation_table;
+/
+drop type message_relation 
+/
+create type message_relation is object (FROM_ID number, TO_ID number);
+/
+create type message_relation_table is table of message_relation;
+/
+
+/* 
+findet alle chatbeziehungen, an denen receiver_id beteiligt ist. filtert
+duplikate, sodasss keine doppelten Beziehungen nach der Form
+ACC_ID | ACC_ACC_ID
+-------------------
+1      | 2
+2      | 1
+enthalten sind.
+*/
+CREATE OR REPLACE FUNCTION F_GET_MESSAGES_INVOLVING(
+    receiver_id IN NUMBER
+)
+    return message_relation_table
+IS
+    ret_val message_relation_table := message_relation_table();
+    n integer := 0;
+BEGIN 
+    for r in(
+        SELECT DISTINCT ACC_ID, ACC_ACC_ID
+        FROM (
+            SELECT ACC_ID, ACC_ACC_ID FROM chat_beziehungen
+            WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+        )
+        WHERE (ACC_ID, ACC_ACC_ID) NOT IN (
+            SELECT ACC_ID, ACC_ACC_ID
+            FROM (
+                SELECT ACC_ID, ACC_ACC_ID
+                FROM (
+                    /* alle chatbeziehungen auswaehlen, an denen receiver_id beteiligt ist*/
+                    SELECT ACC_ID, ACC_ACC_ID FROM chat_beziehungen
+                    WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+                )
+                /* alle chatbeziehungen auswaehlen, bei denen ACC_ID der Empfaenger ist */
+                WHERE ACC_ID IN (
+                    SELECT ACC_ACC_ID FROM chat_beziehungen
+                    WHERE ACC_ID=receiver_id OR ACC_ACC_ID=receiver_id
+                ))
+                WHERE ACC_ID!=receiver_id
+                ))
+    loop
+        ret_val.extend;
+        n := n+1;
+        ret_val(n) := message_relation(r.ACC_ID, r.ACC_ACC_ID);
+    end loop;
+    return(ret_val);
+    
+END F_GET_MESSAGES_INVOLVING;
+/
+
+/*SELECT FROM_ID, TO_ID FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(1) from dual);*/
+
+drop type last_message_table;
+/
+drop type last_message
+/
+create type last_message is object (FROM_USERNAME VARCHAR(100), INHALT CLOB, DATE_OF_CREATION TIMESTAMP);
+/
+create type last_message_table is table of last_message;
+/
+
+CREATE OR REPLACE FUNCTION F_GET_LAST_MESSAGES(
+    receiver_id IN NUMBER
+)
+    return last_message_table
+IS
+    ret_val last_message_table := last_message_table();
+    n integer := 0;
+BEGIN 
+    for r in(
+        SELECT ac.ACC_USERNAME, b.CN_ID, b.CN_INHALT, b.CN_DATE_OF_CREATION 
+            FROM TABLE (SELECT F_GET_MESSAGES_INVOLVING(receiver_id) from dual)
+            INNER JOIN 
+            CHATNACHRICHT b ON 
+                (b.ACC_ID=FROM_ID AND b.ACC_ACC_ID=TO_ID) OR (b.ACC_ACC_ID=FROM_ID AND b.ACC_ID=TO_ID)
+            INNER JOIN ACCOUNT ac ON
+                ac.ACC_ID= 
+                CASE 
+                    WHEN b.ACC_ID=receiver_id THEN b.ACC_ACC_ID
+                    ELSE b.ACC_ID
+                END   
+            WHERE 
+                b.CN_DATE_OF_CREATION = (SELECT MAX(CN_DATE_OF_CREATION) FROM CHATNACHRICHT a WHERE (a.ACC_ID=b.ACC_ID AND a.ACC_ACC_ID=b.ACC_ACC_ID) OR (a.ACC_ID=b.ACC_ACC_ID AND a.ACC_ACC_ID=b.ACC_ID))
+            ORDER BY b.CN_DATE_OF_CREATION DESC)
+    loop
+        ret_val.extend;
+        n := n+1;
+        ret_val(n) := last_message(r.ACC_USERNAME, r.CN_INHALT, r.CN_DATE_OF_CREATION);
+    end loop;
+    return(ret_val);
+END F_GET_LAST_MESSAGES;
+/
+
+SELECT * FROM table (SELECT F_GET_LAST_MESSAGES(1) from dual);
+  
+/* procedures */
+CREATE OR REPLACE PROCEDURE NEUE_ALLIANZ_ANLEGEN(
+    allianz_name IN ALLIANZ.AL_NAME%TYPE,
+    allianz_beschreibung IN ALLIANZ.AL_BESCHREIBUNG%TYPE,
+    creator_id IN ACCOUNT.ACC_ID%TYPE
+    )
+AS
+    new_administration_id NUMBER;
+    new_allianz_id NUMBER;
+BEGIN
+    INSERT INTO ADMINISTRATION (AD_ID)
+    VALUES (NULL);    
+    
+    SELECT MAX(AD_ID) INTO new_administration_id FROM ADMINISTRATION;
+    
+    INSERT INTO ALLIANZ (AL_ID, AD_ID, AL_NAME, AL_BESCHREIBUNG, AL_DATE_OF_CREATION)
+    VALUES (NULL, new_administration_id, allianz_name, allianz_beschreibung, (SELECT SYSDATE from dual));
+    
+    SELECT MAX(AL_ID) INTO new_allianz_id FROM ALLIANZ;
+    
+    UPDATE ADMINISTRATION
+    SET AL_ID = new_allianz_id   
+    WHERE AD_ID = new_administration_id;
+    
+    INSERT INTO USER_TO_ADMIN (ACC_ID, AD_ID)
+    VALUES (creator_id, new_allianz_id);
+END NEUE_ALLIANZ_ANLEGEN;
+/      
+
+CREATE OR REPLACE PROCEDURE NEUES_FORUM_ANLEGEN(
+    allianz_id IN ALLIANZ.AL_ID%TYPE,
+    forum_topic IN FORUM.FO_TOPIC%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO FORUM (FO_ID, AL_ID, FO_DATE_OF_CREATION, FO_TOPIC)
+    VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), forum_topic);    
+END NEUES_FORUM_ANLEGEN;
+/  
+     
+CREATE OR REPLACE PROCEDURE NEUEN_CHATROOM_ANLEGEN(
+    allianz_id IN ALLIANZ.AL_ID%TYPE,
+    chatroom_topic IN CHATROOM.CR_TOPIC%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATROOM (CR_ID, AL_ID, CR_DATE_OF_CREATION, CR_TOPIC)
+    VALUES (NULL, allianz_id, (SELECT SYSDATE from dual), chatroom_topic);    
+END NEUEN_CHATROOM_ANLEGEN;
+/  
+
+CREATE OR REPLACE PROCEDURE NEUE_CHATROOM_NACHRICHT(
+    chatroom_id IN CHATROOM.CR_ID%TYPE,
+    sender_id IN ACCOUNT.ACC_ID%TYPE,
+    content IN CHATROOM_NACHRICHT.CRN_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATROOM_NACHRICHT (CRN_ID, ACC_ID, CR_ID, CRN_DATE_OF_CREATION, CRN_INHALT)
+    VALUES (NULL, sender_id, chatroom_id, (SELECT SYSDATE from dual), content);    
+END NEUE_CHATROOM_NACHRICHT;
+/
+
+CREATE OR REPLACE PROCEDURE NEUEN_FORENEINTRAG_ERSTELLEN(
+    forum_id IN FORUM.FO_ID%TYPE,
+    sender_id IN ACCOUNT.ACC_ID%TYPE,
+    titel IN EINTRAG.EI_TITEL%TYPE,
+    content IN EINTRAG.EI_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO EINTRAG (EI_ID, ACC_ID, FO_ID, EI_TITEL, EI_INALT, EI_DATE_OF_CREATION)
+    VALUES (NULL, sender_id, forum_id, titel, inhalt, (SELECT SYSDATE from dual));    
+END  NEUEN_FORENEINTRAG_ERSTELLEN;
+/
+
+CREATE OR REPLACE PROCEDURE FORENEINTRAG_KOMMENTIEREN (
+    foren_eintrag_id IN EINTRAG.EI_ID%TYPE,
+    kommentar_inhalt in KOMMENTAR.KO_INHALT%TYPE,
+    sender_id in ACCOUNT.ACC_ID%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO KOMMENTAR(KO_ID, EI_ID, ACC_ID, KO_INHALT, KO_DATE_OF_CREATION)
+    VALUES (NULL, foren_eintrag_id, sender_id, kommentar_inhalt, (SElECT SYSDATE from dual));
+END FORENEINTRAG_KOMMENTIEREN;
+/
+
+CREATE OR REPLACE PROCEDURE CHATNACHRICHT_VERSENDEN(
+    to_id IN CHATNACHRICHT.ACC_ID%TYPE,
+    from_id IN CHATNACHRICHT.ACC_ACC_ID%TYPE,
+    inhalt IN CHATNACHRICHT.CN_INHALT%TYPE
+    )
+AS
+BEGIN
+    INSERT INTO CHATNACHRICHT(CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION)
+    VALUES (NULL, from_id, to_id, inhalt, (SELECT SYSDATE from dual));
+END CHATNACHRICHT_VERSENDEN;
+/
+
+CREATE OR REPLACE PROCEDURE CHATNACHRICHT_BEANTWORTEN(
+    nachricht_id IN CHATNACHRICHT.CN_ID%TYPE,
+    antwort_text IN CHATNACHRICHT.CN_INHALT%TYPE
+)
+AS
+    from_id CHATNACHRICHT.ACC_ID%TYPE;
+    to_id CHATNACHRICHT.ACC_ACC_ID%TYPE;
+BEGIN
+    SELECT (ACC_ACC_ID) INTO from_id FROM CHATNACHRICHT WHERE CN_ID=nachricht_id;
+    SELECT (ACC_ID) INTO to_id FROM CHATNACHRICHT WHERE CN_ID=nachricht_id;
+    
+    INSERT INTO CHATNACHRICHT(CN_ID, ACC_ID, ACC_ACC_ID, CN_INHALT, CN_DATE_OF_CREATION)
+    VALUES (NULL, from_id, to_id, antwort_text, (SELECT SYSDATE from dual));
+END CHATNACHRICHT_BEANTWORTEN;
+/
+
+/* sequences and triggers on insert */
+DROP SEQUENCE admin_seq;
+
+CREATE SEQUENCE admin_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER administration_on_insert
+  BEFORE INSERT 
+  ON ADMINISTRATION
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.ad_id IS NULL THEN admin_seq.nextval
+            ELSE :new.ad_id 
+        END
+      INTO :new.ad_id
+      FROM dual;
+END administration_on_insert;
+/
+
+/* allianz insertion */
+DROP SEQUENCE allianz_seq;
+
+CREATE SEQUENCE allianz_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER allianz_on_insert
+  BEFORE INSERT 
+  ON ALLIANZ
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.al_id IS NULL THEN allianz_seq.nextval
+            ELSE :new.al_id 
+        END
+      INTO :new.al_id
+      FROM dual;
+END allianz_on_insert;
+/
+
+/* forum insertion */
+DROP SEQUENCE forum_seq;
+
+CREATE SEQUENCE forum_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER forum_on_insert
+  BEFORE INSERT 
+  ON FORUM
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.fo_id IS NULL THEN forum_seq.nextval
+            ELSE :new.fo_id 
+        END
+      INTO :new.fo_id
+      FROM dual;
+END forum_on_insert;
+/
+
+/* kommentar insertion */
+DROP SEQUENCE eintrag_seq;
+
+CREATE SEQUENCE eintrag_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER eintrag_on_insert
+  BEFORE INSERT 
+  ON EINTRAG
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.ei_id IS NULL THEN eintrag_seq.nextval
+            ELSE :new.ei_id 
+        END
+      INTO :new.ei_id
+      FROM dual;
+END kommentar_on_insert;
+/
+
+/* prueft, ob sender des kommentars auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER eintrag_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON EINTRAG
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM accounts_in_forum WHERE ACC_ID=:new.acc_id AND FO_ID=:new.fo_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Forums');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
+
+/* kommentar insertion */
+DROP SEQUENCE kommentar_seq;
+
+CREATE SEQUENCE kommentar_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER kommentar_on_insert
+  BEFORE INSERT 
+  ON KOMMENTAR
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.ko_id IS NULL THEN kommentar_seq.nextval
+            ELSE :new.ko_id 
+        END
+      INTO :new.ko_id
+      FROM dual;
+END kommentar_on_insert;
+/
+
+/* prueft, ob sender des kommentars auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER kommentar_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON KOMMENTAR
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM ACCOUNTS_IN_FORENEINTRAG WHERE ACC_ID=:new.acc_id AND EI_ID=:new.ei_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Foreneintrags');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
+
+/* chatroom insertion */
+DROP SEQUENCE chatroom_seq;
+
+CREATE SEQUENCE chatroom_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatroom_on_insert
+  BEFORE INSERT 
+  ON CHATROOM
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.cr_id IS NULL THEN chatroom_seq.nextval
+            ELSE :new.cr_id 
+        END
+      INTO :new.cr_id
+      FROM dual;
+END chatroom_on_insert;
+/
+
+/* chatroom nachricht insertion */
+DROP SEQUENCE chatroomnachricht_seq;
+
+CREATE SEQUENCE chatroomnachricht_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatroomnachricht_on_insert
+  BEFORE INSERT 
+  ON CHATROOM_NACHRICHT
+  FOR EACH ROW
+BEGIN
+  SELECT 
+    CASE 
+        WHEN :new.crn_id IS NULL THEN chatroomnachricht_seq.nextval
+        ELSE :new.crn_id 
+    END
+  INTO :new.crn_id
+  FROM dual;
+END chatroomnachricht_on_insert;
+/
+
+/* prueft, ob sender der nachricht auch mitglied der allianz ist */
+CREATE OR REPLACE TRIGGER chatroomnachricht_check_allianz_mitglied
+    BEFORE INSERT OR UPDATE 
+    ON CHATROOM_NACHRICHT
+    FOR EACH ROW
+ BEGIN
+    DECLARE 
+        result number := null;
+    BEGIN
+      SELECT COUNT(ACC_ID) INTO result FROM ACCOUNTS_IN_CHATROOM WHERE ACC_ID=:new.acc_id AND CR_ID=:new.cr_id;
+        IF result = 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Sender ID ist kein Teil der Allianz des Chatrooms');
+      END IF;
+    END;
+END chatroomnachricht_check_allianz_mitglied;
+/   
+
+/* chat nachricht insertion */
+DROP SEQUENCE chatnachricht_seq;
+
+CREATE SEQUENCE chatnachricht_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+    
+CREATE OR REPLACE TRIGGER chatnachricht_on_insert
+  BEFORE INSERT 
+  ON CHATNACHRICHT
+  FOR EACH ROW
+BEGIN
+      SELECT 
+        CASE 
+            WHEN :new.cn_id IS NULL THEN chatnachricht_seq.nextval
+            ELSE :new.cn_id 
+        END
+      INTO :new.cn_id
+      FROM dual;
+END chatnachricht_on_insert;
+/
