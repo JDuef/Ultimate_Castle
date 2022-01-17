@@ -1476,6 +1476,7 @@ Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','19');
 Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','20');
 Insert into GEB_TO_GEBEIG (GEB_ID,GE_ID) values ('42','35');
 
+/* EINHEIT */
 insert into EINHEIT
 values (1, 1, 1, 'Leichter Bogenschuetze', 'Bogenschuetze', 'Holz', 120);
 insert into EINHEIT
@@ -1497,6 +1498,7 @@ values (9, 9, 19, 'Großmeister des Schwertes', 'Schwertkaempfer', 'Eisen', 1100
 insert into EINHEIT
 values (10, 10, 12, 'Gimli', 'Axtkaempfer', 'Eisen', 15000);
 
+/* EINHEIT_GRUPPE */
 insert into EINHEIT_GRUPPE
 values (1, 83);
 insert into EINHEIT_GRUPPE
@@ -1518,6 +1520,7 @@ values (9, 296);
 insert into EINHEIT_GRUPPE
 values (10, 261);
 
+/* GRUPPE */
 insert into GRUPPE
 values (1, 1);
 insert into GRUPPE
@@ -1539,7 +1542,7 @@ values (9, 9);
 insert into GRUPPE
 values (10, 10);
 
-
+/* ANGRIFF */
 insert into ANGRIFF 
 values (1, 1, 1, 1, '4.01.2022 12:33', 'Gewonnen');
 insert into ANGRIFF 
@@ -1561,7 +1564,7 @@ values (9, 9, 9, 9, '04.01.2022 21:22', 'Gewonnen');
 insert into ANGRIFF 
 values (10, 10, 10, 10, '18.09.2021 18:09', 'Gewonnen');
 
-
+/* EINHEIT_ATTRIBUT */
 insert into EINHEIT_ATTRIBUT
 values(1, 1, 5);
 insert into EINHEIT_ATTRIBUT
@@ -1583,6 +1586,7 @@ values(9, 9, 1);
 insert into EINHEIT_ATTRIBUT
 values(10, 10, 5);
 
+/* ATTRIBUTE */ 
 insert into ATTRIBUTE
 values (1, 1, 'Angriff', 'Bogenschaden');
 insert into ATTRIBUTE
@@ -1602,7 +1606,7 @@ values (6, 6, 'Bewegungsgeschwindigkeit', 'Bewegungsgeschwindigkeit');
    Lehm = 2 
    Holz = 3
 */   
-
+/* KRIEGSBEUTE */
 insert into KRIEGSBEUTE
 values (478, 1, 212, 3);
 insert into KRIEGSBEUTE

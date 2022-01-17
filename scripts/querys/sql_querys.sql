@@ -4,7 +4,6 @@ Anforderung:
 Wenn sich ein Benutzer registriert soll dieser in Form eines neuen Datensatzes in die Account-Tabelle eingefügt werden.
 */
 /* Statement: */
-
 INSERT INTO ACCOUNT(acc_id, acc_username, acc_password, acc_email)
 VALUES ([Account ID], [Benutername], [Passwort], [E-Mail]);
 
@@ -340,7 +339,7 @@ SELECT *
 FROM naechstesGebUpgrade
 WHERE geb_level = 4 AND geb_typ = 'Eisenmine' AND ge_eigenschaft = 'Kosten';
 
-/* Alle Spieleracc auf einer Welt */
+/* Alle Spieleraccounts auf einer Welt */
 SELECT koenigreich.koe_wappen, koenigreich.koe_ruhm, koenigreich.welt_id, acc.acc_username FROM koenigreich
 INNER JOIN account acc ON acc.acc_id = koenigreich.acc_id
 WHERE koenigreich.welt_id = 3;
